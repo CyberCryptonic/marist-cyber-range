@@ -9,6 +9,7 @@
 ---
 
 ## Thursday — Week 1 (Professor Meeting)
+> Note: This is Week 1 of execution for the cyber range project (prior meetings were for a different scope/transition).
 
 ### Meeting Info
 - **Date:** 2/5/26 & 2/9/26
