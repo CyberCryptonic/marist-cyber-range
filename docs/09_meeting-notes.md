@@ -15,6 +15,10 @@ All done through ECRL. Will not be creating VMs. Setting up requirements documen
 
 Jozef Masilick & David Delgado (Reach via email) : ECRL
 
+Sort questions for central hudson and ecrl. ECRL: what are we capable of. Professor Foti & Cas: What do we actually want in order to deploy in a way in which what we think is successful.
+
+NTIR Conference: Deadline- 2/15/26. Create abstract of where we think we eill be by April 9Use one pager as reference).
+
 ### Meeting Info
 - **Date:** 2/5/26 & 2/9/26
 - **Type:** Thursday Mr. Foti / Monday Central Hudson Rep
