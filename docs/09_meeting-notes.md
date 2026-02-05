@@ -18,11 +18,11 @@
 - **Location/Call:** Marist University, Hancock 005
 
 ### Agenda
-1.
-2.
-3.
-4.
-5.
+1. Get information on what resources we will be able to access/use.
+2. Figure out the plans going forward for Week 2.
+3. When will be the first meeting with Client and what should we have prepared.
+4. Get the answers to the questions needed to complete Week 1 agenda and continue on with Week 2.
+5. Setup the group Zotero.
 
 ### Questions to Confirm (use this every meeting)
 #### Hardware / Virtualization
