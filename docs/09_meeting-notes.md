@@ -92,17 +92,17 @@
 ### Notes
 - All done through ECRL. Will not be creating VMs. Setting up requirements document and submitting the documentation to the ECRL. Once that is done is when the group goes in for configuration. 
 
-Jozef Masilick & David Delgado (Reach via email) : ECRL
+- Jozef Masilick & David Delgado (Reach via email) : ECRL
 
-Sort questions for central hudson and ecrl. ECRL: what are we capable of. Professor Foti & Cas: What do we actually want in order to deploy in a way in which what we think is successful.
+- Sort questions for central hudson and ecrl. ECRL: what are we capable of. Professor Foti & Cas: What do we actually want in order to deploy in a way in which what we think is successful.
 
-NTIR Conference: Deadline- 2/15/26. Create abstract of where we think we eill be by April 9Use one pager as reference).
+- NTIR Conference: Deadline- 2/15/26. Create abstract of where we think we eill be by April 9Use one pager as reference).
 
-Will be meeting with Central Hudson on Thursdays from 10-11 for 30minutes within that time slot, with Wednesdays & Fridays from 9-10am as backups.
+- Will be meeting with Central Hudson on Thursdays from 10-11 for 30minutes within that time slot, with Wednesdays & Fridays from 9-10am as backups.
 
-All questions that we have in this meeting doc need to be answered by ECRL and Central Hudson (Need to sort them correctly for each of them).
+- All questions that we have in this meeting doc need to be answered by ECRL and Central Hudson (Need to sort them correctly for each of them).
 
-Need to create the timeline of the project for the entire semester by next Thursdays meeting.
+- Need to create the timeline of the project for the entire semester by next Thursdays meeting.
 
 ### Decisions Made (write these like final answers)
 - Hypervisor:
