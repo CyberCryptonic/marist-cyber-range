@@ -10,7 +10,6 @@
 
 ## Thursday — Week 1 (Professor Meeting)
 
-## Meeting Template
 ### Meeting Info
 - **Date:** 2/5/26 & 2/9/26
 - **Type:** Thursday Mr. Foti / Monday Central Hudson Rep
