@@ -11,6 +11,10 @@
 ## Thursday — Week 1 (Professor Meeting)
 > Note: This is Week 1 of execution for the cyber range project (prior meetings were for a different scope/transition).
 
+All done through ECRL. Will not be creating VMs. Setting up requirements document and submitting the documentation to the ECRL. Once that is done is when the group goes in for configuration. 
+
+Jozef Masilick & David Delgado (Reach via email) : ECRL
+
 ### Meeting Info
 - **Date:** 2/5/26 & 2/9/26
 - **Type:** Thursday Mr. Foti / Monday Central Hudson Rep
