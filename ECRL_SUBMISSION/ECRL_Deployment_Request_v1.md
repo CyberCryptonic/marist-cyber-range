@@ -62,3 +62,4 @@ Routing + Controls:
 - Snapshot/restore/reset options available?
 - Any restricted tooling/software list?
 - Can logs be exported externally, and what retention limits apply?
+- Are there scheduled maintenance times?
