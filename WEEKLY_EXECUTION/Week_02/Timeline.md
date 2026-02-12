@@ -1,6 +1,6 @@
 # Week_02 — Timeline
 
-## Feb 11 (Today)
+## Feb 11
 - Upload/commit Week 2 deliverables to GitHub
 - Confirm stakeholder question separation document is complete
 - Draft ECRL deployment request v1 (TBD where needed)
