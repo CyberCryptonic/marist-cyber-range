@@ -31,7 +31,13 @@ An item is only “Done” when:
 - A teammate reviews and comments “Reviewed” on the issue
 
 ## Quick Links
-- Requirements: `/docs/02_requirements.md`
-- Architecture: `/docs/03_architecture-draft.md`
-- Meeting Notes: `/docs/09_meeting-notes.md`
-- Project Board: GitHub Projects → “Marist Cyber Range – Build & Ops”
+- Requirements (Working): /docs/02_requirements.md
+- Architecture (Draft): /docs/03_architecture-draft.md
+- Stakeholder Questions (Week 02): /DOCUMENTATION/Stakeholder_Questions.md
+- ECRL Deployment Request v1 (Week 02): /ECRL_SUBMISSION/ECRL_Deployment_Request_v1.md
+- Detailed Semester Timeline (Week 02): /DOCUMENTATION/Detailed_Semester_Timeline.md
+- Weekly Execution (Week 02): /WEEKLY_EXECUTION/Week_02/
+- Meeting Notes: /docs/09_meeting-notes.md
+
+## Project Tracking
+Detailed task tracking is maintained in a private GitHub Project board during the semester (internal assignments/notes). High-level milestones and weekly progress are documented in this repository (ROADMAP + WEEKLY_EXECUTION + meeting notes).
