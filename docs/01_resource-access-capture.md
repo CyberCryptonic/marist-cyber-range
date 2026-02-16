@@ -32,8 +32,52 @@
 - RBAC expectations:
 
 ## Decisions Locked Today
-- 
+- Access will be via VPN.
+
+- Environment access is 24/7, but no live support (if something breaks, email ECRL).
+
+- Multiple students can access the environment simultaneously.
+
+- VLANs are provisioned by ECRL; the team cannot create VLANs or manage routing.
+
+- Outbound internet access is allowed, with institutional constraints and firewall controls.
+
+- The team is responsible for its own backups and operational management; the core Marist network cannot be modified.
+
+- Tooling is broadly allowed (SIEM / IDS / EDR permitted); avoid tools that require paid licenses.
+
+- Snapshots are possible, but should be used sparingly and only when necessary.
+
 ## Open Questions Remaining
-- 
+- Exact hypervisor platform (VMware / Proxmox / KVM / etc.)
+
+- Host count and per-host specifications (CPU / RAM / storage)
+
+- Storage backend type and performance expectations
+
+- IP management method (DHCP vs static assignments; DNS control ownership)
+
+- Traffic mirroring options (SPAN / TAP / vSwitch mirror) for tools such as Zeek or Suricata
+
+- Process and timeline for requesting VLAN creation and firewall rule changes
+
+- Whether inbound access to any honeypot is allowed and how it would be implemented (NAT clarification)
+
+- Snapshot retention policy (duration and maximum snapshot count)
+
+- Whether VM templates or cloning (gold images) are supported
+
 ## Action Items After Meeting
-- 
+- Email ECRL directors with project scope and outstanding technical questions.
+
+- Draft the NTIR Conference abstract.
+
+- Apply for the Marist AI Summit.
+
+- Conduct research on the current state of cyber ranges in academia.
+
+- Revise Central Hudson questions.
+
+- Send updated environment/architecture diagram to Professor Algozzine and David (ECRL Networking).
+
+- Ask Professor Foti to coordinate with Professor Algozzine regarding AI and GPU discussions (even if large GPU capacity is not required).
