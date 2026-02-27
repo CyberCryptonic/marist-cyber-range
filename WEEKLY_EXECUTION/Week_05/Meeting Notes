@@ -1,38 +1,101 @@
-- Try to give Foti deadlines of what we need and when we need it by. 
+# Week_05 — Meeting Notes  
+**Date:** 02/26/2026  
+**Location:** ECRL  
+**Attendees:** Team PEAK  
 
-- Write out explictly what machines we’re going to be using Ex: 5 windows OS 
+---
 
-- Create a more technical topography 
+## Executive Priorities
 
-- Start distributing work among group but still trying to keep everyone in the loop with what’s going on 
+- Provide Foti with clear deadlines for deliverables
+- Explicitly document all machines being used (no placeholders)
+  - Example: 5 Windows OS, 3 Kali Linux, etc.
+- Create a more technical topology diagram
+- Begin distributing work across team members while maintaining shared visibility
+- Prepare 5 structured questions for Central Hudson
+- Send Central Hudson questions to Foti for review before client meeting
+- Schedule meeting with Algozzine and Foti
+  - Discuss hypervisor selection
+  - Discuss possibility of acquiring dedicated server hardware
 
-- Try to have 5 questions for central hudson 
+---
 
-- Send Foti questions so he can look over them 
+## Intern Integration
 
-- Set up meeting with Algozine and Foti to discuss hypervisor or if we can get our own server 
+We are now working with interns.
 
-Bens Notes
-Week 5 Meeting (2/26/26)
-Working with interns now
----Learning about how we work as a group and the project itself 
----They are available to for a few hours each week to do extra research
----Invite them to Zotero group + Github project
+### Objectives:
+- Learn how to operate effectively as a larger group
+- Introduce them to project architecture and workflow
+- Assign them focused research tasks (a few hours per week)
 
-Topography
--Make it more specific instead of examples of ideas we can do
----Foti will then give us feedback if he likes it or not
--Should add networking aspects as well (IP’s)
+### Action Items:
+- Invite interns to Zotero group
+- Add interns to GitHub Project board
+- Assign preliminary research topics
 
-For the next Central Hudson meeting:
--Show updated project plan, topography, prepare around 5 questions for them
----Example: Ask for recommendations for tools
--Update them about our weekly progress
----“This is what we did last week…, this is what we’re doing this week…, this is what we plan to do next week…”
--Send Foti our questions and any meeting materials we plan on presenting by Sunday night so he can review and give us feedback
+---
 
+## Topology Development
 
--Investigate open source cyber ranges that other schools may be deploying
----We don’t have to do something totally brand new, but can combine factors of different cyber ranges if needs be
+### Required Improvements:
+- Replace conceptual examples with concrete implementation details
+- Specify exact machine counts and OS breakdown
+- Include networking details:
+  - IP addressing scheme
+  - Subnet segmentation
+  - VLAN structure (if applicable)
 
--Can use 1 white paper for weekly assignments, but not for both
+### Review Process:
+- Submit revised topology to Foti
+- Incorporate his feedback before presenting externally
+
+---
+
+## Central Hudson — Next Meeting Preparation
+
+### Deliverables to Present:
+- Updated project plan
+- Revised technical topology
+- 5 structured client questions
+
+### Example Question Type:
+- Tool recommendations (SIEM, IDS/IPS, endpoint monitoring, etc.)
+
+### Weekly Status Update Format:
+- What we completed last week
+- What we are working on this week
+- What we plan to complete next week
+
+### Internal Requirement:
+- Send all meeting materials and questions to Foti by Sunday night
+- Allow time for review and feedback prior to client meeting
+
+---
+
+## Research Direction
+
+- Investigate open-source cyber ranges currently deployed by other universities
+- Identify reusable components or frameworks
+- Combine effective elements rather than reinventing architecture
+
+---
+
+## Weekly Assignment Guidance
+
+- One white paper may be used per weekly assignment
+- The same white paper cannot be reused for both assignments
+
+---
+
+## Strategic Direction
+
+We are transitioning from conceptual design to:
+- Defined infrastructure
+- Explicit machine allocation
+- Concrete networking design
+- Structured stakeholder communication
+- Hardware decision finalization
+
+Next major milestone:
+- Finalize virtualization architecture after meeting with Algozzine
