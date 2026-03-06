@@ -1,0 +1,32 @@
+Meeting with Foti
+
+- adding parrot os maybe (recommendation by Foti)
+
+- Option to pick what team they would be in (blue team or red team) What would a student see when they sign in
+
+- Maybe seperate SOC into 2 nodes for admins and students
+
+- Maybe blue teamer could just join a VM that only focuses on a SOC dashboard
+
+- 2nd question was good for Central hudson just make it better. (If we had to prioritize 5 threat scenario
+
+- 3rd Question answer: yes to both demo and presentation
+
+- Think about User Experience
+
+- 4th Question answer: Central Hudson wouldn't really care
+
+- 5th questions is a good question
+
+Topology notes
+- Nodes are more like network segments and not really server endpoints
+
+- Everything will be within Proxmox 
+
+- Windows VMs dont really need much in terms of hardware
+
+- Put all three boxes (Red, Blue, SOC) into one big Proxmox box, remove servers and switch
+
+- Not be using splunk it will be ELK stack
+
+- Blue Team server should be a target server
