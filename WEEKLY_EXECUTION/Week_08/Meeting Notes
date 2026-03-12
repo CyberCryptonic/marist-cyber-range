@@ -11,3 +11,36 @@ Notes from meeting with Foti 3/12/26:
 - Before client meetings start planning out things like what people will say and do in the meeting
 - Applying to another conference at Marist (April 9th I think?) Foti will upload assignment for when and where to apply
 
+Bens  Notes
+-Stop light Status reports will be due Wednesday nights now
+-Foti will review them before meetings so we can cover new content on our thursday meetings
+
+Topology
+-Windows log server isn’t supposed to be part of SOC
+-They aren’t called servers, they are called environments
+-Entire topology is called the enterprise environment
+-Each server should be renamed environments
+
+For demo
+-Record the demo for the NTIR conference so we don’t run into any issues when we’re presenting
+
+NTIR conference
+-Presenting to a group of about 10-20 people
+-Will run through it a week before
+-Length: 15-20 minutes
+-Should present itself as a classic research presentation
+-Intro, overview (current state of cyber ranges out there), research, conclusion
+--“The open source cyber range” ours was mostly open source, not crazily funded
+-Main aspect of our cyber range is that we used open source materials, so most people can do the same without needing large funding (ignoring the ECRL support we received)
+-Initially, assume they don’t know anything or what a cyber range is
+-Then we can get into greater details and we hope the audience can follow along (for those who might be unfamiliar with the project)
+
+Create a zoom meeting; invite david to review topology
+
+Ryan- How should we start implementation
+-Start by a little from each environment
+
+Before we start deploying, figure out networking
+-Subnets, and how the computers are going to be talking to each other
+
+Nate- message Cannistra for advice
