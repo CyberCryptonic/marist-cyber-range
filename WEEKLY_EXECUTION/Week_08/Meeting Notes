@@ -49,6 +49,8 @@ Nate- message Cannistra for advice
 
 Notes from meeting with David 3/13/26:
 
+LINK TO RECORDING OF MEETING: https://www.youtube.com/watch?v=qgSYovAf0vY 
+
 - Figure out hardware requirements for each VM
 - Utilize network adapters in proxmox and have them take control of those subnets
 - Wednesday 5pm it'll be running
