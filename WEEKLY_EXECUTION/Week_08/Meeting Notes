@@ -44,3 +44,28 @@ Before we start deploying, figure out networking
 -Subnets, and how the computers are going to be talking to each other
 
 Nate- message Cannistra for advice
+
+-------------------------------------------------
+
+Notes from meeting with David 3/13/26:
+
+- Figure out hardware requirements for each VM
+- Utilize network adapters in proxmox and have them take control of those subnets
+- Wednesday 5pm it'll be running
+
+Server would have 
+- 1TB Storage
+- 1TB System Memory
+- 32 Cores
+
+- Storage is expandable (rack is capable of multiple drives) and should happen sooner than later to create less of a headache
+- Look into how much storage commercial Cyber Ranges offer
+- No online connectivity for VMs
+- If there is online connectivity you are restricted to 10.11.31.0/24
+- Only one admin box will have internet connectivity to push updates to the other machines
+- David can handle the subnetting, we have to get it to him by Monday. 
+
+URL Address for Marist VPN - 2620:91:0:17::0/64
+v1.marist.edu
+
+
