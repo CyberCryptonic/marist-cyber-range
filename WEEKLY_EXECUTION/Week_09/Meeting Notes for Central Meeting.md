@@ -178,13 +178,17 @@ Moving forward, we plan to expand into full environment deployment, establish co
 Our cyber range is built on a single Proxmox server that hosts everything in one place, but inside that system we’ve separated it into three distinct environments to simulate a real enterprise setup.
 
 **Description:**  
-At a high level, we designed the environment around three main areas: Red Team, Target, and SOC/Detection. Each one sits on its own subnet so they’re isolated from each other, but still able to interact in a controlled way.
+At a high level, we designed the environment around three main areas: Red Team, Target, and SOC/Detection. Each one sits on its own subnet, enforced by a firewall (pfSense/OPNsense), so they’re isolated from each other but still able to interact in a controlled and realistic way.
 
-The Red Team environment is where all of the attacking happens. We have multiple Kali Linux machines for students, along with an instructor machine and a jump box. This is where attacks originate and get launched into the network.
+The Red Team environment is where all of the attacking happens. We have multiple Kali Linux machines for students, along with an instructor machine and a jump box. This is where attacks originate and get launched into the network, simulating real adversary behavior.
 
 The Target environment is meant to look and feel like a real company network. It includes things like domain controllers, file servers, web servers, and multiple Windows user machines. We also added vulnerable applications so there’s something realistic to attack and defend. This is the environment the Blue Team is responsible for protecting.
 
-Then we have the SOC/Detection environment, which is where all the monitoring and analysis takes place. This includes Security Onion along with tools like Zeek and Snort. This environment is responsible for picking up on what the Red Team is doing and helping the Blue Team respond to it.
+Then we have the SOC/Detection environment, which is where all the monitoring and analysis takes place. The core of this is Security Onion, which acts as our central SOC platform by aggregating logs, alerts, and network data into one dashboard. Within this environment, Zeek provides deep network visibility by logging traffic like connections and DNS requests, while Snort detects known attack patterns using signatures. We also use a centralized Linux log server to collect system logs across machines, giving us full visibility into what’s happening during an attack.
+
+To support realism, we also include a network traffic generator that creates normal background activity (like web browsing and file transfers), so not everything looks malicious. This forces detection tools to distinguish between real threats and normal behavior.
+
+For simulating advanced attacks, we use MITRE Caldera, which automates adversary techniques like lateral movement and privilege escalation based on real-world attack frameworks. Finally, a cyber range orchestration server is used to automate and control scenarios, allowing us to run repeatable exercises and reset the environment when needed.
 
 Everything is running on Proxmox, which lets us manage all of these virtual machines in one place while keeping the environments logically separated. The goal with this design was to make it as close to a real enterprise network as possible while still being controlled enough for training and experimentation.
 
