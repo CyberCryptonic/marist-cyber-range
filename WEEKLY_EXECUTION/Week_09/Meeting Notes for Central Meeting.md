@@ -13,7 +13,10 @@ We shifted our topology to an environment-based design across Red Team, Blue Tea
 We also updated our GitHub project section to clearly reflect progress and next steps, making it easier to track development across the team.
 Additionally, we met with David to review hardware capabilities, networking constraints, and access methods, and successfully validated connectivity to the environment.
 At this point, we are transitioning from planning into implementation, with a focus on defining the network architecture, configuring Proxmox networking, and deploying initial proof-of-concept VMs.
+The core networking and segmentation have been set up within the ECRL environment, including predefined subnets for each environment and Proxmox network bridges. Our focus now is on integrating our virtual machines into that structure and ensuring proper communication between environments to support realistic attack and detection scenarios.
 Moving forward, we plan to expand into full environment deployment, establish communication between systems, and begin developing realistic threat scenarios based on your input.
+
+
 
 ---
 
