@@ -40,15 +40,9 @@
 
 # Questions for Central Hudson:
 
-1. Ask about Security Onion and if we should just satick with that instead of seprating it into multiple VM's that do what Security Onion does on its own. 
+1. What type of scenrios would you suggest for this cyber range? Are there any specific scenrios you would like to see implemented. If we had to do 5 threat scenarios, what would you do?
 
-2. What type of scenrios would you suggest for this cyber range? Are there any specific scenrios you would like to see implemented. Maybe one tailored to a GAS & ELECTRIC COMPANY.
-
-3. As a final presentation did you want a demo, or a presentation on the work over the course of the semester?
-
-4. Should we keep our firewall (pfSense/OPNsense) as a firewall and the router or have a seprate router as well?
-
-5. What would make this cyber range feel realistic and valuable from your perspective?
+2. What would make this cyber range feel realistic and valuable from your perspective?
 
 ---
 
