@@ -1,4 +1,6 @@
-Meeting with Foti
+# Week 07 — Meeting Notes
+
+## Meeting with Foti
 
 - adding parrot os maybe (recommendation by Foti)
 
@@ -18,7 +20,10 @@ Meeting with Foti
 
 - 5th questions is a good question
 
-Topology notes
+---
+
+## Topology Notes
+
 - Nodes are more like network segments and not really server endpoints
 
 - Everything will be within Proxmox 
@@ -27,49 +32,82 @@ Topology notes
 
 - Put all three boxes (Red, Blue, SOC) into one big Proxmox box, remove servers and switch
 
-Notes (Ben's)
-Foti Suggestions
+---
+
+## Notes (Ben's)
+
+### Foti Suggestions
+
 -Blue team- you'd sign into security onion
+
 -If ur red team, you'd be able to sign into kali linux or parrotOs
--Foti suggests ParrotOS
+
+-Foti suggests ParrotOS  
 ---More education based
 
-Separate security onion into two boxes
+- Separate security onion into two boxes  
 -One box- security management (admin blue teamer box)
 
-Proof of concept, not creating all the boxes; for this sem, we can deploy one security onion box or one kali linux box
+- Proof of concept, not creating all the boxes; for this sem, we can deploy one security onion box or one kali linux box
 
-Question for Central Hudson
--Rephrase questions: 
+---
+
+## Question for Central Hudson
+
+- Rephrase questions:  
 --What scenarios should we implement based on the experiences you all have based in the Central Hudson SOC? (we want to make this up to date), if we had to do 5 threat scenarios, what would you do?
--Question 3: demo + presentation
+
+- Question 3: demo + presentation  
 --Don’t need to ask this
--Rephrase question 4, or present positives and negatives to both cases
---Positive: don't need to configure a new router
---Negative:
+
+- Rephrase question 4, or present positives and negatives to both cases  
+--Positive: don't need to configure a new router  
+--Negative:  
 --Foti says just have the firewall act as the router
 
-Foti- How do you guys envision students using the SOC?
--Step into 0005, log in, asked if they want to red team or blue team
--Involves front end and back end
--Need to have red team box that can be hacked with
--Need to program a dashboard for tickets
+---
+
+## Foti Discussion
+
+- Foti- How do you guys envision students using the SOC?  
+-Step into 0005, log in, asked if they want to red team or blue team  
+-Involves front end and back end  
+-Need to have red team box that can be hacked with  
+-Need to program a dashboard for tickets  
 -We should have maintenance documentation (?)
 
-Topology Review
--The cyber range should exist on one server
--We can use Prox mox or VMware
---One server is hosting everything with prox mox / vm ware
---Use prox mox as hypervisor
---VMs will live inside that
--Delete everything above 3 sections
--Should be one server for prox mox
--2 log servers are good
--We can combine SIEM (going to be using ALC STack) Zeke, throw snort 
--Far-right Box
+---
+
+## Topology Review
+
+- The cyber range should exist on one server
+
+- We can use Prox mox or VMware  
+--One server is hosting everything with prox mox / vm ware  
+--Use prox mox as hypervisor  
+--VMs will live inside that  
+
+- Delete everything above 3 sections
+
+- Should be one server for prox mox
+
+- 2 log servers are good
+
+- We can combine SIEM (going to be using ALC STack) Zeke, throw snort 
+
+- Far-right Box  
 --Systems 1,4,5,10 can all be combined
--Middle Box (Target Simulated Organization/Environment)
 
-Meeting with Central Hudson on 3/10, no meeting during spring break or week after spring break, next meeting will be on 3/31
+- Middle Box (Target Simulated Organization/Environment)
 
-Follow up with Algozzine (ASAP)
+---
+
+## Scheduling
+
+- Meeting with Central Hudson on 3/10, no meeting during spring break or week after spring break, next meeting will be on 3/31
+
+---
+
+## Action Items
+
+- Follow up with Algozzine (ASAP)
