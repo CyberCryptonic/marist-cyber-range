@@ -178,7 +178,13 @@ Moving forward, we plan to expand into full environment deployment, establish co
 Our cyber range is built on a single Proxmox server that hosts everything in one place, but inside that system we’ve separated it into three distinct environments to simulate a real enterprise setup.
 
 **Description:**  
-At a high level, we designed the environment around three main areas: Red Team, Target, and SOC/Detection. Each one sits on its own subnet, enforced by a firewall (pfSense/OPNsense), so they’re isolated from each other but still able to interact in a controlled and realistic way.
+At a high level, we designed the environment around three main areas: Red Team, Target, and SOC/Detection. Each one sits on its own subnet, enforced by a firewall, which we ended up choosing OPNsense.
+
+###########################################################################################
+Answer to if they ask about the firewall at all: (OPNsense: It lets us replicate how real organizations separate and protect different parts of their network, which is critical for making the environment realistic. OPNsense and pfSense are very similar, but we leaned toward OPNsense because it has a more modern interface, frequent updates, and strong community support, while still giving us the same core firewall and routing capabilities.)
+##########################################################################################
+
+But this is so that they’re isolated from each other but still able to interact in a controlled and realistic way.
 
 The Red Team environment is where all of the attacking happens. We have multiple Kali Linux machines for students, along with an instructor machine and a jump box. This is where attacks originate and get launched into the network, simulating real adversary behavior.
 
