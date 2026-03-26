@@ -21,3 +21,10 @@ Updates:
 Proxmox:
 
 -Get most of the envirnment deployed.
+
+Presentation Dates
+April 9th - AI Summit 
+April 22nd - CURSCA
+April 23rd-24th - NTIR
+June 3rd-4th - NYS Cybersecurity Conference 
+TBD - Central Hudson (Not confirmed)
