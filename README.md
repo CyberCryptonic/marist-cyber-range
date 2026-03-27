@@ -32,7 +32,7 @@ The goal is to create a reusable and scalable platform that future student teams
 ---
 
 ## Architecture Summary
-The cyber range is deployed on a single Proxmox server hosted in the ECRL.  
+The cyber range is deployed on a single Proxmox server hosted in the ECRL (Marist Universities Server Room).  
 Each environment is logically segmented and connected through a firewall/router to simulate enterprise network behavior while maintaining isolation.
 
 The system is designed to:
