@@ -4,6 +4,23 @@
 This document tracks all IP address assignments for the cyber range environment.  
 Maintaining this file prevents IP conflicts, simplifies troubleshooting, and ensures consistency as the environment scales.
 
+# Target Environment — IP Configuration
+
+## Purpose
+
+This document defines the IP addressing scheme for the Target Environment.
+
+It ensures:
+- consistent system configuration
+- no IP conflicts
+- easier troubleshooting
+- scalability as additional systems are added
+
+## Related Setup Phases
+
+- Used in: Phase 01 — Networking
+- Referenced by all system deployment phases
+
 ---
 
 # 🌐 Network Segmentation
