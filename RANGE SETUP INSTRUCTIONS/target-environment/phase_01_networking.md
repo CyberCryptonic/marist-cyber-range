@@ -3,21 +3,23 @@
 ✅ Completed
 
 # Marist SOC Cyber Range
-# Lab Build Guide — Infrastructure, Virtualization, and Network Foundation
+# Lab Build Guide — Phase 01: Infrastructure, Virtualization, and Network Foundation
 
-## Purpose
+---
 
-This document outlines the initial infrastructure setup for the Marist SOC Cyber Range. It serves as the foundational phase of the project, where the virtualization environment, network segmentation, and base architecture were established.
+# Purpose
 
-This phase focused on:
+This document outlines the initial infrastructure setup for the Marist SOC Cyber Range.
 
-- Preparing the Proxmox hypervisor environment
-- Designing and implementing network segmentation
-- Defining the cyber range architecture
-- Establishing base VM templates
-- Validating connectivity and remote access
+This phase established the **core platform** that supports the entire environment, including:
 
-This phase is critical because it provides the platform on which all future systems (Active Directory, SOC tooling, attack simulations) are built.
+- Virtualization (Proxmox)
+- Network segmentation
+- System architecture design
+- Template preparation
+- Initial connectivity validation
+
+Everything built in later phases (Active Directory, file services, SOC tooling, attack simulation) depends on the decisions made here.
 
 ---
 
@@ -32,15 +34,16 @@ The cyber range is hosted on a Proxmox Virtual Environment (PVE) server.
 - Access Method: Web UI (HTTPS)
 - Managed via: Proxmox VE Dashboard
 
-## Purpose of Proxmox
+## Role of Proxmox
 
-Proxmox acts as:
-- The virtualization layer
+Proxmox serves as:
+
+- Virtualization platform (hosts all VMs)
 - Resource manager (CPU, RAM, Storage)
 - Network bridge controller
 - VM lifecycle manager
 
-All virtual machines in the cyber range are hosted within this environment.
+All systems in the cyber range are deployed, configured, and managed through Proxmox.
 
 ---
 
@@ -48,41 +51,55 @@ All virtual machines in the cyber range are hosted within this environment.
 
 ## Objective
 
-The goal of the network design was to simulate a realistic enterprise environment while maintaining safe isolation between different functional zones.
+Design a segmented network that:
+
+- Simulates a real enterprise environment
+- Supports attack + defense workflows
+- Maintains controlled isolation between environments
+
+---
 
 ## Segmented Network Design
 
-Three primary network segments were defined:
+Three primary network zones were implemented:
 
 ### Red Team Network
 - Subnet: `10.20.10.0/24`
-- Purpose: Offensive operations (attack simulation)
-- Proxmox Bridge: `vmbr1`
+- Bridge: `vmbr1`
+- Purpose:
+  - Attack simulation
+  - Offensive tooling (Kali Linux)
 
 ---
 
 ### Target Network
 - Subnet: `10.20.20.0/24`
-- Purpose: Simulated enterprise environment (users, servers)
-- Proxmox Bridge: `vmbr2`
+- Bridge: `vmbr2`
+- Purpose:
+  - Enterprise simulation (AD, endpoints, servers)
+  - Primary attack surface
 
 ---
 
 ### SOC / Detection Network
 - Subnet: `10.20.30.0/24`
-- Purpose: Monitoring, logging, detection, and response
-- Proxmox Bridge: `vmbr3`
+- Bridge: `vmbr3`
+- Purpose:
+  - Monitoring and detection
+  - Security Onion and logging systems
 
 ---
 
-## Why Network Segmentation Matters
+## Why This Design Matters
 
-This design allows:
+This segmentation enables:
 
-- Controlled attack simulation from Red Team → Target
-- Monitoring visibility from SOC → Target
-- Isolation between environments to prevent unintended interference
-- Realistic enterprise network modeling
+- Red Team → Target attack paths
+- SOC → Target monitoring visibility
+- Isolation between environments
+- Realistic enterprise network simulation
+
+This is one of the most critical design decisions in the entire project.
 
 ---
 
@@ -90,28 +107,27 @@ This design allows:
 
 ## Firewall Selection
 
-A firewall/router system (OPNsense or pfSense) is used to:
+A firewall/router system (OPNsense or pfSense) is used as the central network control point.
 
-- Route traffic between subnets
-- Enforce network segmentation rules
-- Simulate enterprise perimeter security
+## Responsibilities
 
-## Responsibilities of the Firewall
+- Acts as default gateway for all subnets
+- Routes traffic between environments
+- Enforces segmentation policies
+- Controls attack flow and visibility
 
-- Default gateway for each subnet
-- Traffic control between:
-  - Red Team ↔ Target
-  - Target ↔ SOC
-- Policy enforcement for attack scenarios
-- Network visibility and control
+---
 
-## Importance
+## Why This Is Critical
 
-This component acts as the **central control point** for all network communication and is essential for:
+This component enables:
 
-- Simulating real-world attack paths
-- Implementing security controls
-- Observing network traffic during scenarios
+- Realistic network boundaries
+- Controlled attack scenarios
+- Traffic inspection and analysis
+- SOC visibility into Target activity
+
+Without this layer, the environment would not behave like a real enterprise network.
 
 ---
 
@@ -119,7 +135,7 @@ This component acts as the **central control point** for all network communicati
 
 ## Provided VM Templates
 
-The following templates were pre-configured and provided:
+The following templates were available:
 
 - `900 (kali-redteam)`
 - `901 (Kali-Purple)`
@@ -129,17 +145,27 @@ The following templates were pre-configured and provided:
 - `905 (Windows-11-EduN)`
 - `906 (Windows-Server-2022)`
 
+---
+
 ## Purpose of Templates
 
 Templates allow:
 
-- Rapid deployment of consistent virtual machines
-- Standardized configurations across the environment
-- Efficient scaling of the cyber range
+- Rapid VM deployment
+- Consistent configurations
+- Scalable environment growth
+
+---
 
 ## Best Practice
 
-All VMs should be cloned from templates rather than built manually to ensure consistency and reduce configuration errors.
+All systems in this environment are deployed by cloning templates.
+
+This ensures:
+
+- Standardization
+- Reduced setup time
+- Fewer configuration errors
 
 ---
 
@@ -147,58 +173,57 @@ All VMs should be cloned from templates rather than built manually to ensure con
 
 ## Objective
 
-Design a realistic enterprise network that supports:
+Design a complete cyber range with three functional environments:
 
-- Offensive (Red Team) activities
-- Defensive (SOC) monitoring
-- User and server simulation (Target environment)
-
-## Environment Breakdown
+---
 
 ### Red Team Environment
 Includes:
-- Kali Linux machines (students and instructor)
-- Jump server for controlled access
+
+- Kali Linux machines
+- Jump box
 
 Purpose:
-- Launch attacks
-- Perform reconnaissance
-- Simulate adversary behavior
+
+- Simulate attackers
+- Execute exploits and reconnaissance
 
 ---
 
 ### Target Environment
 Includes:
-- Domain Controllers
-- File servers
-- Web servers
-- User workstations (Windows 10/11)
+
+- Domain Controller
+- File server
+- Windows endpoints
 - Vulnerable applications
 
 Purpose:
-- Simulate a real enterprise network
-- Serve as the attack target
-- Generate activity for detection
+
+- Simulate enterprise infrastructure
+- Generate realistic activity
+- Serve as attack target
 
 ---
 
 ### SOC / Detection Environment
 Includes:
+
 - Security Onion
-- Logging systems
-- Intrusion detection tools
-- Traffic analysis tools
+- Logging tools
+- Network monitoring systems
 
 Purpose:
-- Monitor network activity
-- Detect malicious behavior
-- Analyze attack patterns
+
+- Detect attacks
+- Analyze behavior
+- Provide visibility into the environment
 
 ---
 
 ## Architecture Outcome
 
-This design creates a full cyber range ecosystem:
+This creates a full cyber range ecosystem:
 
 - Attackers (Red Team)
 - Victims (Target)
@@ -210,119 +235,147 @@ This design creates a full cyber range ecosystem:
 
 ## Objective
 
-Ensure that systems within the environment could be accessed and managed remotely.
-
-## Actions Performed
-
-- Verified VPN access into the environment
-- Tested RDP connectivity to Windows systems
-- Confirmed access to Proxmox web interface
-- Validated basic network communication between systems
-
-## Importance
-
-Without reliable remote access:
-
-- Systems cannot be managed efficiently
-- Troubleshooting becomes difficult
-- Collaboration across the team is limited
+Ensure all systems could be accessed and managed remotely.
 
 ---
 
-# 7. Initial Proxmox Familiarization
+## Actions Performed
+
+- Verified VPN access into environment
+- Tested RDP access to Windows systems
+- Confirmed Proxmox web interface access
+- Validated subnet communication
+
+---
+
+## Importance
+
+This ensured:
+
+- Remote management capability
+- Team collaboration
+- Reliable troubleshooting
+
+---
+
+# 7. Proxmox Familiarization
 
 ## Key Concepts Learned
 
 - VM creation and cloning
 - Template usage
-- Hardware configuration (CPU, RAM, Disk)
-- Network interface assignment (vmbr bridges)
-- Console access vs remote access
+- Resource allocation
+- Network bridge assignment
+- Console vs remote access
+
+---
 
 ## Why This Matters
 
-Understanding Proxmox is essential because:
+Proxmox is the control layer for:
 
-- All infrastructure changes occur here
-- Network placement is controlled here
-- VM lifecycle (start, stop, clone, delete) is managed here
+- Infrastructure
+- Networking
+- System lifecycle
+
+Misconfiguration here breaks everything downstream.
 
 ---
 
 # 8. Key Design Decisions
 
-## 1. Use of a Single Proxmox Server
+## 1. Single Proxmox Server
 
 Chosen because:
-- Simplifies management
-- Centralizes resources
-- Reduces hardware requirements
 
-## 2. Network Segmentation via Bridges
+- Centralized management
+- Reduced hardware complexity
+- Easier deployment and maintenance
+
+---
+
+## 2. Network Segmentation
 
 Chosen because:
+
 - Enables isolation
 - Supports realistic attack paths
-- Provides flexibility for future expansion
+- Improves scalability
+
+---
 
 ## 3. Template-Based Deployment
 
 Chosen because:
-- Reduces setup time
+
+- Speeds up builds
 - Ensures consistency
-- Simplifies scaling
+- Reduces manual errors
 
 ---
 
 # 9. Key Lessons Learned
 
 ## 1. Planning is critical
-Designing the architecture before building prevents rework and confusion later.
+Poor planning leads to major rework later.
 
-## 2. Network segmentation is foundational
-A poorly designed network makes it difficult to simulate attacks and monitor behavior effectively.
+## 2. Network design defines everything
+A weak network architecture limits the entire project.
 
-## 3. Templates save significant time
-Using prebuilt images avoids repetitive OS installation and configuration.
+## 3. Templates are essential
+They dramatically reduce build time.
 
-## 4. Understanding the hypervisor is essential
-All infrastructure depends on correct Proxmox configuration.
+## 4. Hypervisor knowledge is required
+All systems depend on correct Proxmox configuration.
 
 ---
 
 # 10. Final State After Phase 01
 
-By the end of this phase:
+At the end of this phase:
 
-- Proxmox environment was fully accessible
-- Network segmentation was defined and implemented
-- Firewall/routing layer was introduced
-- VM templates were available for cloning
-- Cyber range architecture was designed
-- Remote access and connectivity were validated
-
----
-
-# 11. Transition to Phase 02
-
-With infrastructure in place, the next phase focused on:
-
-- Deploying Windows Server
-- Building Active Directory
-- Creating a domain environment
-- Joining workstations to the domain
+- Proxmox environment was operational
+- Network segmentation was implemented
+- Firewall routing layer was introduced
+- VM templates were ready
+- Architecture was fully designed
+- Remote access was validated
 
 ---
 
-# 12. Quick Reference
+# 11. Current State (Post Phase 01)
+
+The infrastructure defined in this phase is now actively supporting:
+
+- Active Directory (Phase 02)
+- Enterprise user/group structure (Phase 03)
+- File server and access control (Phase 04)
+- Ongoing SOC environment build
+
+This confirms that the design decisions made in Phase 01 were correct and scalable.
+
+---
+
+# 12. Transition to Phase 02
+
+Next phase:
+
+- Deploy Windows Server
+- Build Active Directory
+- Create domain (`cyberrange.local`)
+- Join endpoints
+
+---
+
+# 13. Quick Reference
 
 ## Networks
 
-- Red Team: `10.20.10.0/24`
-- Target: `10.20.20.0/24`
-- SOC: `10.20.30.0/24`
+- Red Team → `10.20.10.0/24`
+- Target → `10.20.20.0/24`
+- SOC → `10.20.30.0/24`
 
-## Proxmox Bridges
+## Bridges
 
 - `vmbr1` → Red Team
 - `vmbr2` → Target
@@ -336,4 +389,13 @@ With infrastructure in place, the next phase focused on:
 
 # Conclusion
 
-Phase 01 established the foundational infrastructure required to build a fully functional cyber range. With virtualization, network segmentation, and architecture in place, the environment was ready to support enterprise services such as Active Directory, user management, and security monitoring in subsequent phases.
+Phase 01 established the core infrastructure of the cyber range.
+
+With virtualization, network segmentation, and architecture in place, the environment became capable of supporting:
+
+- Enterprise identity systems
+- User management
+- Detection and monitoring
+- Realistic cyber attack scenarios
+
+This phase is the foundation of the entire project.
