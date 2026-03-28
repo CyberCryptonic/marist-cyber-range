@@ -16,6 +16,11 @@ It ensures:
 - easier troubleshooting
 - scalability as additional systems are added
 
+## Related Setup Phases
+
+- Used in: Phase 01 — Networking
+- Referenced by all system deployment phases
+
 ---
 
 # 🌐 Network Segmentation
