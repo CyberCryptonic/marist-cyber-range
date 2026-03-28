@@ -1,3 +1,14 @@
+## Status
+
+🚧 Functionally Complete
+
+- File server deployed
+- Shares created
+- Permissions implemented
+- Access control working
+
+⚠️ May be extended later with additional enterprise services
+
 # Phase 04 Lab Guide: Enterprise File Services Build
 
 ## Marist SOC Cyber Range
