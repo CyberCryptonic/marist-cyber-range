@@ -7,7 +7,7 @@
 
 ## Purpose
 
-This document explains, in detail, how the Marist SOC Cyber Range moved from a base Proxmox infrastructure into a functioning Windows enterprise domain environment.
+This document explains how the Marist SOC Cyber Range moved from a base Proxmox infrastructure into a functioning Windows enterprise domain environment.
 
 This phase focused on:
 
@@ -18,10 +18,10 @@ This phase focused on:
 - Installing Active Directory Domain Services (AD DS)
 - Creating the `cyberrange.local` domain
 - Configuring DNS
-- Joining Windows 10 and Windows 11 workstations to the domain
+- Joining initial Windows workstations to the domain
 - Creating the initial Active Directory structure for future management
 
-The outcome of this phase was a working domain environment that future students can expand with users, servers, Group Policy, logging, and SOC tooling.
+The outcome of this phase was a working domain environment that future students could expand with users, servers, Group Policy, file services, logging, and SOC tooling.
 
 ---
 
@@ -37,7 +37,7 @@ Before this phase, the environment only consisted of infrastructure and networki
 - Domain-based authentication
 - Domain-joined Windows endpoints
 
-This is the point where the project stopped being "just virtual machines" and started behaving like a real enterprise network.
+This is the point where the project stopped being “just virtual machines” and started behaving like a real enterprise network.
 
 ---
 
@@ -51,7 +51,7 @@ The following templates were provided and used for cloning:
 - `905 (Windows-11-EduN)`
 - `906 (Windows-Server-2022)`
 
-## Virtual Machines Built
+## Virtual Machines Built During Initial Domain Bring-Up
 
 ### Target Environment
 All three of the following systems were placed on the Target network (`vmbr2` / `10.20.20.0/24`):
@@ -68,10 +68,23 @@ These three systems were enough to establish:
 
 - a domain
 - centralized authentication
-- two managed workstations
+- managed Windows endpoints
 - the foundation for later attack and defense scenarios
 
 This prevented unnecessary complexity early in the project.
+
+## Important Current-State Note
+
+Although Phase 02 began with one Windows 10 and one Windows 11 workstation, the Target Environment has since expanded. The current addressing plan includes:
+
+- `WIN10-User01` → `10.20.20.101`
+- `WIN10-User02` → `10.20.20.102`
+- `WIN10-User03` → `10.20.20.103`
+- `WIN11-User01` → `10.20.20.111`
+- `WIN11-User02` → `10.20.20.112`
+- `WIN11-User03` → `10.20.20.113`
+
+This document remains focused on the initial domain deployment work completed in Phase 02, while later phases document the broader enterprise expansion.
 
 ---
 
@@ -156,7 +169,7 @@ Once the Windows Server installer loaded, the correct installation option select
 
 ## Why "Upgrade" was not used
 
-The "Upgrade" option only works when Windows is already installed on the machine. Since this was effectively a fresh installation on a virtual disk, "Custom" was the correct choice.
+The `Upgrade` option only works when Windows is already installed on the machine. Since this was effectively a fresh installation on a virtual disk, `Custom` was the correct choice.
 
 ---
 
@@ -216,6 +229,7 @@ For lab consistency, a standardized password convention was chosen for the envir
 Because this is a controlled training environment, simplicity and consistency were prioritized over production-style password hygiene.
 
 This helps reduce:
+
 - lockouts
 - confusion
 - unnecessary troubleshooting during demonstrations and testing
@@ -276,12 +290,14 @@ Instead of manually loading every missing driver one by one, the full VirtIO gue
 ## Result
 
 This installed:
+
 - NIC drivers
 - guest communication drivers
 - additional VirtIO-related system drivers
 - PCI-related drivers
 
 After installation and reboot:
+
 - the Ethernet adapter appeared correctly
 - missing devices were resolved
 - the machine was ready for network configuration
@@ -459,11 +475,10 @@ It returned:
 ### Meaning
 
 This confirmed:
+
 - the machine was now operating in the domain context
 - Active Directory was functioning
 - the server was successfully promoted
-
----
 
 ## DNS verification
 
@@ -477,6 +492,7 @@ DNS Manager was opened and the following were confirmed:
 ### Meaning
 
 This confirmed:
+
 - DNS was installed correctly
 - AD and DNS integration was healthy
 - the Domain Controller was registering itself in DNS
@@ -496,7 +512,7 @@ The following Organizational Units were created under `cyberrange.local`:
 
 ## Intended additional OU
 
-A `Groups` OU was also identified as necessary for later clean administration, although it had not yet been created at the time this work session paused.
+A `Groups` OU was identified as necessary for cleaner administration in later phases.
 
 ## Why OUs were created
 
@@ -533,6 +549,7 @@ For this lab environment, the following approach was adopted:
 ## Why
 
 This was done to avoid:
+
 - password expiration breaking the lab
 - repeated admin lockouts
 - unnecessary interruptions during build and demo work
@@ -543,72 +560,65 @@ The account initially existed in the default:
 
 - `Users` container
 
-## Important note
+## Long-term improvement
 
-The default `Users` container is not ideal for long-term organization because it is not a custom OU.
-
-## Intended improvement
-
-The `itadmin` user should later be moved into:
-
-- `IT` OU
-
-and then added to a purpose-built security group such as:
-
-- `IT-Admins`
+In later AD cleanup, this account should live in the `IT` OU and be added to an administrative security group such as `IT-Admins`.
 
 ---
 
-# 19. Preparing Windows 10 for Domain Join
+# 19. Preparing Windows Workstations for Domain Join
 
-## Windows 10 system built
+## Initial systems built
 
-The Windows 10 VM cloned from template `904` was configured next.
-
-## In-guest hostname used
-
-The workstation hostname used was:
+The first two managed client systems brought into the domain were:
 
 - `WIN10-USER-01`
+- `WIN11-USER-01`
 
-## Why this hostname format was used
+## Client DNS requirement
 
-This naming approach kept the VM easy to identify while remaining more Windows-friendly than longer descriptive phrases.
+All domain-joined Windows clients were configured to use:
 
-## Static network configuration applied
-
-Windows 10 was configured with:
-
-- IP Address: `10.20.20.20`
-- Subnet Mask: `255.255.255.0`
-- Default Gateway: `10.20.20.1`
 - Preferred DNS: `10.20.20.10`
 
-## Why DNS pointed to 10.20.20.10
+This ensured they could resolve `cyberrange.local` through the Domain Controller.
 
-Clients must use the Domain Controller as their DNS server in order to locate the domain and domain services.
+## Important Current-State Update
+
+The current target workstation addressing model now uses the following ranges:
+
+### Windows 10
+- `WIN10-User01` → `10.20.20.101`
+- `WIN10-User02` → `10.20.20.102`
+- `WIN10-User03` → `10.20.20.103`
+
+### Windows 11
+- `WIN11-User01` → `10.20.20.111`
+- `WIN11-User02` → `10.20.20.112`
+- `WIN11-User03` → `10.20.20.113`
+
+These values supersede the earlier temporary single-workstation addressing used during initial domain bring-up.
 
 ## Connectivity verification
 
-The following checks were performed successfully:
+Before joining clients to the domain, connectivity was validated using checks such as:
 
-- ping to `10.20.20.10`
+- `ping 10.20.20.10`
 - `nslookup cyberrange.local`
 
-## Meaning
-
 This confirmed:
+
 - the client could see the Domain Controller
 - DNS was correctly configured
 - the system was ready for a domain join
 
 ---
 
-# 20. Joining Windows 10 to the Domain
+# 20. Joining Windows Clients to the Domain
 
 ## Domain join steps followed
 
-On Windows 10:
+On each Windows client:
 
 1. Open system properties
 2. Open the rename / domain membership dialog
@@ -621,31 +631,23 @@ On Windows 10:
 
 ## Result
 
-The machine successfully joined the domain and rebooted.
+Each machine successfully joined the domain and rebooted.
 
 ## Login verification
 
-After reboot, login was performed using:
+After reboot, domain login was tested using:
 
 - `cyberrange\itadmin`
 
-and `whoami` returned:
-
-- `cyberrange\itadmin`
-
-## Meaning
-
-This confirmed:
-- the machine joined the domain successfully
-- domain-based authentication worked correctly
+Successful domain login and `whoami` output confirmed that domain-based authentication was working correctly.
 
 ## AD verification
 
-The computer object for the workstation appeared in Active Directory.
+The computer objects for joined systems appeared in Active Directory.
 
 ## Organizational cleanup
 
-The workstation was moved from the default `Computers` container into the:
+Joined workstations were moved from the default `Computers` container into the:
 
 - `Workstations` OU
 
@@ -655,74 +657,9 @@ The default `Computers` container is only a generic holding location. Workstatio
 
 ---
 
-# 21. Preparing Windows 11 for Domain Join
+# 21. Active Directory State at the End of Phase 02
 
-## Windows 11 system built
-
-The Windows 11 VM cloned from template `905` was configured next.
-
-## In-guest hostname used
-
-The workstation hostname used was:
-
-- `WIN11-USER-01`
-
-## Static network configuration applied
-
-Windows 11 was configured with:
-
-- IP Address: `10.20.20.21`
-- Subnet Mask: `255.255.255.0`
-- Default Gateway: `10.20.20.1`
-- Preferred DNS: `10.20.20.10`
-
-## Connectivity verification
-
-The workstation successfully pinged:
-
-- `10.20.20.10`
-
-This confirmed it could communicate with the Domain Controller.
-
----
-
-# 22. Joining Windows 11 to the Domain
-
-## Domain join steps followed
-
-On Windows 11:
-
-1. Open system properties / domain membership settings
-2. Select `Domain`
-3. Enter:
-   - `cyberrange.local`
-4. Authenticate with:
-   - `cyberrange\itadmin`
-   - `Cyberrange2026`
-
-## Result
-
-The machine successfully joined the domain and rebooted.
-
-## Login verification
-
-After reboot, login was performed using the same domain admin account.
-
-This confirmed:
-- domain authentication worked correctly on the second workstation
-- the Windows 11 system was properly integrated into the enterprise environment
-
-## AD verification
-
-The workstation appeared in Active Directory and was moved into the:
-
-- `Workstations` OU
-
----
-
-# 23. Active Directory State at the End of Phase 02
-
-By the end of this phase, Active Directory contained:
+By the end of the foundational AD deployment, Active Directory contained:
 
 ## Core Infrastructure
 - `Primary-Domain-Server` functioning as Domain Controller
@@ -738,25 +675,31 @@ By the end of this phase, Active Directory contained:
 - `Servers`
 - `Workstations`
 
-## Managed Workstations
+## Managed Workstations (Initial Domain Bring-Up)
 - `WIN10-USER-01`
 - `WIN11-USER-01`
 
 Both workstations:
+
 - joined the domain
 - authenticated successfully
 - appeared in Active Directory
 - were moved into the `Workstations` OU
 
+## Current Environment Expansion Note
+
+Since completion of this phase, the target environment has expanded beyond the original two clients. Additional Windows 10 and Windows 11 systems have been added under the current IP plan, and later phases introduced groups, GPO, and enterprise file services.
+
 ---
 
-# 24. Key Technical Lessons Learned
+# 22. Key Technical Lessons Learned
 
 ## 1. Templates may still require installation
 Future students should verify the state of cloned templates immediately. A template may still require OS installation steps.
 
 ## 2. VirtIO drivers are essential in Proxmox
 Windows guests often require:
+
 - storage drivers during installation
 - guest tools after installation
 - network drivers before network configuration will work
@@ -765,14 +708,14 @@ Windows guests often require:
 If a workstation cannot resolve the domain through the Domain Controller, the join will fail even if general IP connectivity looks correct.
 
 ## 4. The default Users and Computers containers are only starting points
-For proper management and later policy application, build out dedicated OUs early and move machines / users into them.
+For proper management and later policy application, build out dedicated OUs early and move machines and users into them.
 
 ## 5. Lab simplicity is acceptable when intentional
 Using one standardized password (`Cyberrange2026`) is acceptable in a teaching lab when the goal is reliability and repeatability, not production security.
 
 ---
 
-# 25. Final Outcome of Phase 02
+# 23. Final Outcome of Phase 02
 
 At the end of this phase, the Marist SOC Cyber Range had a functioning enterprise identity environment.
 
@@ -782,21 +725,22 @@ This included:
 - a functioning internal DNS server
 - an Active Directory domain
 - domain authentication
-- two managed domain-joined Windows endpoints
+- managed domain-joined Windows endpoints
 - an initial OU structure for future expansion
 
-This completed the foundational identity layer of the cyber range and prepared the project for the next phase:
+This completed the foundational identity layer of the cyber range and prepared the project for the next phases:
+
 - users
 - groups
 - Group Policy
+- enterprise file services
 - logging
-- servers
 - SOC tooling
 - attack simulations
 
 ---
 
-# 26. Quick Reference
+# 24. Quick Reference
 
 ## Domain
 - `cyberrange.local`
@@ -804,15 +748,26 @@ This completed the foundational identity layer of the cyber range and prepared t
 ## Standard Lab Password
 - `Cyberrange2026`
 
-## Systems
+## Core Systems
 - `Primary-Domain-Server` → `10.20.20.10`
-- `WIN10-USER-01` → `10.20.20.20`
-- `WIN11-USER-01` → `10.20.20.21`
+- `File-Server` → `10.20.20.30`
+
+## Current Workstation Addressing
+### Windows 10
+- `WIN10-User01` → `10.20.20.101`
+- `WIN10-User02` → `10.20.20.102`
+- `WIN10-User03` → `10.20.20.103`
+
+### Windows 11
+- `WIN11-User01` → `10.20.20.111`
+- `WIN11-User02` → `10.20.20.112`
+- `WIN11-User03` → `10.20.20.113`
 
 ## Network
 - Bridge: `vmbr2`
 - Subnet: `10.20.20.0/24`
 - Gateway: `10.20.20.1`
+- Client DNS: `10.20.20.10`
 
 ## OUs Created
 - `Employees`
@@ -822,7 +777,7 @@ This completed the foundational identity layer of the cyber range and prepared t
 
 ---
 
-# 27. Recommended Next Steps
+# 25. Recommended Next Steps
 
 The next phase should include:
 
@@ -849,4 +804,4 @@ The next phase should include:
 
 # Conclusion
 
-Phase 02 transformed the cyber range from a base virtual environment into a functioning Windows enterprise domain. With Active Directory, DNS, centralized authentication, and two managed workstations now operational, the project gained the core identity and management structure required for realistic cyber operations, enterprise administration, and future attack-and-defense scenarios.
+Phase 02 transformed the cyber range from a base virtual environment into a functioning Windows enterprise domain. With Active Directory, DNS, centralized authentication, and a stable identity backbone now operational, the project gained the core management structure required for realistic cyber operations, enterprise administration, and later attack-and-defense scenarios.
