@@ -1,3 +1,7 @@
+## Status
+
+✅ Completed
+
 # Marist SOC Cyber Range
 # Lab Build Guide — Infrastructure, Virtualization, and Network Foundation
 
