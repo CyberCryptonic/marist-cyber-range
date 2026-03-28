@@ -1,3 +1,13 @@
+## Status
+
+🚧 Nearly Complete
+
+- Users created
+- Groups implemented
+- GPO deployed
+- Logging enabled
+- Minor cleanup remaining
+
 # Marist SOC Cyber Range  
 ## Phase 03 — Active Directory Structure, Users, Groups, and Group Policy
 
