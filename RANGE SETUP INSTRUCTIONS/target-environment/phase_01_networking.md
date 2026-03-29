@@ -5,7 +5,6 @@
 # Marist SOC Cyber Range
 # Lab Build Guide — Phase 01: Infrastructure, Virtualization, and Network Foundation
 
-Source File: :contentReference[oaicite:0]{index=0}
 
 ---
 
