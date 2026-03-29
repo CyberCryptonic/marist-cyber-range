@@ -1,603 +1,344 @@
 ## Status
 
-✅ Complete
+✅ Completed
 
-- Organizational Units structured
-- Department-based users created
-- Student users created
-- Security groups created and assigned
-- Servers and workstations organized into OUs
-- Group Policy deployed and verified
-- Audit logging enabled
-- Active Directory environment validated and operational
+- Users created  
+- Groups implemented  
+- Group memberships assigned  
+- Workstations organized into the correct OU  
+- GPO deployed  
+- Audit logging enabled  
+- Policy application verified  
+- Logging validated  
+- Administrative access confirmed  
 
 ---
 
-# Marist SOC Cyber Range
+# Marist SOC Cyber Range  
 # Lab Build Guide — Phase 03: Active Directory Structure, Users, Groups, and Group Policy
+
+Source File: :contentReference[oaicite:0]{index=0}
 
 ---
 
 # Purpose
 
-This phase builds the core Active Directory structure for the target environment. The goal is to turn the domain into a realistic enterprise-style environment that supports centralized identity management, role-based access control, workstation organization, and baseline monitoring.
+Phase 03 transforms the cyber range from a basic Active Directory deployment into a structured, enterprise-managed environment.
 
-By the end of this phase, the environment will include:
+This phase introduces:
 
-- Department-based Organizational Units
-- Employee and student user accounts
-- Security groups for access control
-- Organized server and workstation computer objects
-- A baseline Group Policy Object
-- Audit logging for authentication and account activity
+- Organizational structure through Organizational Units (OUs)  
+- Identity management through user creation  
+- Role-based access control through security groups  
+- Centralized configuration through Group Policy  
+- Security visibility through audit logging  
 
-This phase is important because it creates the identity and management foundation for everything that comes next, including file shares, server access, logging, attack simulation, and SOC monitoring.
+By the end of this phase, the environment behaves like a real enterprise network and is prepared for later expansion into file services, access control, and SOC monitoring.
 
 ---
 
 # Objectives
 
-- Create the Organizational Unit structure
-- Create all employee and student users
-- Create all required security groups
-- Add users to the proper groups
-- Organize computers into the proper OUs
-- Create and link a workstation Group Policy Object
-- Enable baseline audit logging
-- Validate that the domain environment is functioning correctly
+- Create Organizational Units (OUs)  
+- Create users and security groups  
+- Assign group memberships  
+- Organize computers into OUs  
+- Deploy Group Policy Objects (GPOs)  
+- Enable audit logging  
+- Validate policy enforcement  
 
 ---
 
 # Prerequisites
 
-Before starting this phase, make sure the following are already completed:
+Before beginning this phase, the following must already be complete:
 
-- Proxmox environment is operational
-- Primary Domain Controller is installed and working
-- Domain has already been created as `cyberrange.local`
-- DNS is functioning properly
-- Windows 10 and Windows 11 client machines are joined to the domain
-- You can log into the domain with an administrative account
-- File Server has been joined to the domain if already built
-
----
-
-# Environment Used
-
-Domain Name:
-`cyberrange.local`
-
-Main Platform:
-- Windows Server 2022 for the Domain Controller
-- Windows 10 and Windows 11 for domain clients
-
-Administrative Tools Used:
-- Active Directory Users and Computers
-- Group Policy Management
-- Event Viewer
-- Command Prompt
-- PowerShell
+- Proxmox environment is operational  
+- Domain Controller is installed and functioning  
+- Domain `cyberrange.local` exists  
+- Windows 10 and Windows 11 systems are joined to the domain  
+- Domain authentication is functioning properly  
 
 ---
 
 # Target Active Directory Structure
 
-The intended structure for this phase is:
+The target structure used in this phase is:
 
 cyberrange.local  
 │  
 ├── Employees  
-│   ├── Engineering  
-│   ├── Finance  
-│   ├── HR  
-│   └── IT  
-│  
-├── STUDENTS  
-│  
-├── Groups  
-│   ├── Engineering  
-│   ├── Finance  
-│   ├── HR  
-│   ├── IT  
-│   ├── STUDENTS  
-│   └── IT-Admins  
-│  
+├── IT  
 ├── Servers  
-└── Workstations  
+├── Workstations  
+├── Groups  
 
-This structure separates users, groups, servers, and workstations in a way that is easy to manage and easy to understand later when permissions, policies, and logging are expanded.
-
----
-
-# Part 1 — Open Active Directory Users and Computers
-
-## Step 1
-
-Log into the Primary Domain Controller using a domain administrative account.
-
-## Step 2
-
-Open Active Directory Users and Computers.
-
-You can do this either of these ways:
-
-Method 1:
-- Click Start
-- Open Server Manager
-- Go to Tools
-- Click Active Directory Users and Computers
-
-Method 2:
-- Press `Windows + R`
-- Type:
-`dsa.msc`
-- Press Enter
-
-## Step 3
-
-In the left panel, expand the domain:
-`cyberrange.local`
-
-You should now see the default domain containers and any OUs that already exist.
+This structure is used to separate users, administrative accounts, computer objects, and security groups so the environment can be managed more like a real enterprise network.
 
 ---
 
-# Part 2 — Create the Organizational Unit Structure
+# Part 1 — Create Organizational Units (OUs)
 
-## Step 4
+## Step 1 — Log into the Domain Controller
 
-Right-click `cyberrange.local`
+Log into the Domain Controller using an account with domain administrative privileges.
 
-Select:
-- New
-- Organizational Unit
-
-## Step 5
-
-Create the following top-level OUs one at a time:
-
-- Employees
-- STUDENTS
-- Groups
-- Servers
-- Workstations
-
-For each one:
-- Type the name exactly
-- Leave accidental deletion protection enabled unless you intentionally want it off
-- Click OK
-
-## Step 6
-
-Now create the department OUs inside the `Employees` OU.
-
-Right-click `Employees`
-
-Select:
-- New
-- Organizational Unit
-
-Create the following child OUs:
-
-- Engineering
-- Finance
-- HR
-- IT
-
-When finished, your structure under `Employees` should contain all four departments.
-
-## Step 7
-
-Inside the `Groups` OU, create the departmental group containers if you want the exact visual structure you used.
-
-Right-click `Groups`
-
-Select:
-- New
-- Organizational Unit
-
-Create:
-
-- Engineering
-- Finance
-- HR
-- IT
-- STUDENTS
-
-This gives you a clean place to store the actual security groups.
+This phase was performed from the Domain Controller because Active Directory management and Group Policy configuration were handled centrally from that system.
 
 ---
 
-# Part 3 — Create Employee User Accounts
+## Step 2 — Open Active Directory Users and Computers
 
-## Step 8
+Open:
 
-Navigate to:
-`cyberrange.local > Employees > Engineering`
+Active Directory Users and Computers  
 
-Right-click in the blank white area on the right side
+Expand:
 
-Select:
-- New
-- User
+cyberrange.local  
 
-## Step 9
-
-Create the Engineering user.
-
-Enter:
-- First name: Emily
-- Last name: Davis
-- Full name: Emily Davis
-- User logon name: choose the format you want to use consistently
-
-Click Next
-
-Set the password
-
-Recommended lab configuration:
-- Uncheck `User must change password at next logon`
-- Check `Password never expires` if you want to keep the lab simple
-- Make sure the account is enabled
-
-Click Next, then Finish
-
-## Step 10
-
-Navigate to:
-`cyberrange.local > Employees > Finance`
-
-Create the Finance user:
-
-- Michael Brown
-
-Use the same process as above.
-
-## Step 11
-
-Navigate to:
-`cyberrange.local > Employees > HR`
-
-Create the HR user:
-
-- Sarah Johnson
-
-Use the same process as above.
-
-## Step 12
-
-Navigate to:
-`cyberrange.local > Employees > IT`
-
-Create the IT users:
-
-- John Smith
-- it admin
-
-Use the same process for each account.
-
-For `it admin`, make sure you remember the exact username format because this account will be used for administration and validation later.
+This is the primary tool used to create the OU structure, user objects, group objects, and to move computer objects into the correct locations.
 
 ---
 
-# Part 4 — Create Student User Accounts
+## Step 3 — Create Top-Level Organizational Units
 
-## Step 13
+Right-click the domain:
 
-Navigate to:
-`cyberrange.local > STUDENTS`
+New → Organizational Unit  
 
-Right-click in the blank area
+Create the following OUs:
 
-Select:
-- New
-- User
+- Employees  
+- IT  
+- Servers  
+- Workstations  
+- Groups  
 
-## Step 14
+These OUs establish the initial enterprise structure for the cyber range.
 
-Create the following student accounts one at a time:
+Purpose of each OU:
 
-- Student 01
-- Student 02
-- Student 03
-- Student 04
-- Student 05
-- Student 06
+- Employees → stores standard employee user accounts  
+- IT → stores administrative or IT-related accounts  
+- Servers → intended location for server computer objects  
+- Workstations → intended location for Windows client computer objects  
+- Groups → stores security groups used for access control and management  
 
-For each student:
-- Set a password
-- Uncheck `User must change password at next logon`
-- Check `Password never expires` if you want to simplify the lab
-- Ensure the account is enabled
-
-When complete, all student accounts should appear inside the `STUDENTS` OU.
+At the end of this step, the domain should no longer rely only on the default Users and Computers containers.
 
 ---
 
-# Part 5 — Create Security Groups
+# Part 2 — Create User Accounts
 
-## Step 15
-
-Navigate to:
-`cyberrange.local > Groups > Engineering`
-
-Right-click in the blank white area
-
-Select:
-- New
-- Group
-
-## Step 16
-
-Create the Engineering security group.
-
-Use:
-- Group name: Engineering
-- Group scope: Global
-- Group type: Security
-
-Click OK
-
-## Step 17
+## Step 4 — Create Standard Employee Users
 
 Navigate to:
-`cyberrange.local > Groups > Finance`
 
-Create:
-- Finance
+Employees OU  
 
-Set:
-- Group scope: Global
-- Group type: Security
+Right-click:
 
-## Step 18
+New → User  
 
-Navigate to:
-`cyberrange.local > Groups > HR`
+Create the following employee user accounts:
 
-Create:
-- HR
+- jdoe  
+- jsmith  
+- mjones  
 
-If you also created manager groups in HR, you can create them here too, but for the baseline documented phase, the main HR group is enough unless you want to document both.
+For each user, set the password to:
 
-## Step 19
+Cyberrange2026  
 
-Navigate to:
-`cyberrange.local > Groups > IT`
+Configure each user account with the following settings:
 
-Create:
-- IT
-- IT-Admins
+- Disable `User must change password at next logon`  
+- Enable `Password never expires`  
 
-Set both as:
-- Group scope: Global
-- Group type: Security
-
-## Step 20
-
-Navigate to:
-`cyberrange.local > Groups > STUDENTS`
-
-Create:
-- STUDENTS
-
-Set:
-- Group scope: Global
-- Group type: Security
-
-When done, all core security groups should exist.
+This was done to keep the lab environment simple and consistent so future testing and demonstrations are not interrupted by forced password changes or expiration issues.
 
 ---
 
-# Part 6 — Add Users to the Correct Groups
-
-This step is important because the users themselves should not be used directly for most permissions. Group membership is what makes the environment manageable.
-
-## Step 21
-
-Add the Engineering employee to the Engineering group.
+## Step 5 — Create the Administrative User
 
 Navigate to:
-`cyberrange.local > Groups > Engineering`
 
-Double-click the `Engineering` group
+IT OU  
 
-Go to:
-- Members
-- Add
+Right-click:
 
-Type the Engineering user account:
-`Emily Davis`
+New → User  
 
-Click:
-- Check Names
-- OK
-- Apply
-- OK
+Create the following administrative account:
 
-## Step 22
+- itadmin  
 
-Add the Finance employee to the Finance group.
+This account is used later in the phase to validate administrative access, domain authentication, and group membership.
 
-Open the `Finance` group
+---
+
+# Part 3 — Create Security Groups
+
+## Step 6 — Create the Initial Security Groups
+
+Navigate to:
+
+Groups OU  
+
+Right-click:
+
+New → Group  
+
+Create the following groups:
+
+- IT-Admins  
+- Employees  
+
+These groups establish the first layer of role-based access control within the environment.
+
+Purpose of each group:
+
+- IT-Admins → administrative group for elevated access  
+- Employees → standard group for normal employee accounts  
+
+---
+
+## Step 7 — Assign Group Memberships
+
+Open the `IT-Admins` group.
 
 Add:
-`Michael Brown`
 
-Apply the changes
+- itadmin  
 
-## Step 23
-
-Add the HR employee to the HR group.
-
-Open the `HR` group
+Then open the `Employees` group.
 
 Add:
-`Sarah Johnson`
 
-Apply the changes
+- jdoe  
+- jsmith  
+- mjones  
 
-## Step 24
+This step is important because user permissions and administrative roles should be tied to group membership rather than handled user-by-user whenever possible.
 
-Add the IT employee accounts to the correct IT groups.
+At the end of this step:
 
-Open the `IT` group
-
-Add:
-- John Smith
-
-Then open the `IT-Admins` group
-
-Add:
-- it admin
-
-If you want `it admin` to also be a normal IT member, you can add it there too, but at minimum it should be in `IT-Admins`.
-
-## Step 25
-
-Add all student accounts to the `STUDENTS` group.
-
-Open the `STUDENTS` group
-
-Go to:
-- Members
-- Add
-
-Add:
-- Student 01
-- Student 02
-- Student 03
-- Student 04
-- Student 05
-- Student 06
-
-Apply and close
-
-## Step 26
-
-Validate the memberships.
-
-Open each group and confirm the correct users appear in the Members tab.
-
-You should now have:
-
-- Engineering group contains the Engineering employee
-- Finance group contains the Finance employee
-- HR group contains the HR employee
-- IT group contains the IT employee
-- IT-Admins contains the admin account
-- STUDENTS contains all student accounts
+- `itadmin` is in `IT-Admins`  
+- `jdoe`, `jsmith`, and `mjones` are in `Employees`  
 
 ---
 
-# Part 7 — Organize Domain Computers
+# Part 4 — Organize Domain Computers
 
-By default, newly joined computers often appear in the default `Computers` container. Moving them into the correct OUs makes policy application and management much easier.
+## Step 8 — Open the Default Computers Container
 
-## Step 27
+In Active Directory Users and Computers, navigate to:
 
-In Active Directory Users and Computers, click the default `Computers` container.
+Computers container  
 
-Look for domain-joined systems such as:
+Locate all domain-joined Windows client systems.
 
-- Windows 10 clients
-- Windows 11 clients
-- File Server if it has not already been moved
+The systems identified in this phase were:
 
-## Step 28
+- Windows 10 machines  
+- Windows 11 machines  
 
-Move workstations into the Workstations OU.
-
-For each client machine:
-- Right-click the computer object
-- Select Move
-- Choose `Workstations`
-- Click OK
-
-Move all Windows 10 and Windows 11 systems into the `Workstations` OU.
-
-## Step 29
-
-Move server systems into the Servers OU.
-
-For each server that should be there:
-- Right-click the computer object
-- Select Move
-- Choose `Servers`
-- Click OK
-
-At minimum, the File Server should be in `Servers` if domain joined and visible there.
-
-Do not move the Domain Controller into `Servers`. Domain Controllers remain in the default `Domain Controllers` OU unless you have a specific design reason to do otherwise.
-
-## Step 30
-
-Verify final placement.
-
-After moving everything, confirm:
-- All client workstations appear under `Workstations`
-- File Server appears under `Servers`
-- Domain Controller remains in `Domain Controllers`
+By default, newly joined machines often appear in the generic Computers container. This is functional, but not ideal for organization or Group Policy targeting.
 
 ---
 
-# Part 8 — Create the Workstation Group Policy Object
+## Step 9 — Move Workstations into the Workstations OU
 
-This GPO establishes your workstation baseline and gives you centralized management.
+For each domain-joined Windows 10 and Windows 11 machine:
 
-## Step 31
+- Right-click the computer object  
+- Select Move  
+- Choose the Workstations OU  
+- Click OK  
 
-Open Group Policy Management.
+This step ensures that workstation systems are organized properly and can later receive policies scoped specifically to workstation systems.
 
-You can do this either way:
+At the end of this step, the Windows client systems should no longer be left inside the default Computers container.
 
-Method 1:
-- Server Manager
-- Tools
-- Group Policy Management
+---
 
-Method 2:
-- Press `Windows + R`
-- Type:
-`gpmc.msc`
-- Press Enter
+# Part 5 — Verify Administrative Access
 
-## Step 32
+## Step 10 — Log Into a Workstation as itadmin
 
-In the left pane, expand:
+Log into a domain-joined workstation using:
 
-- Forest
-- Domains
-- cyberrange.local
+CYBERRANGE\itadmin  
 
-Locate the `Workstations` OU
+This test confirms that the account exists, the domain authentication process is working, and the workstation can successfully authenticate the administrative account through Active Directory.
 
-## Step 33
+---
 
-Right-click the `Workstations` OU
+## Step 11 — Verify Group Membership from the Workstation
 
-Select:
-- Create a GPO in this domain, and Link it here
+Open Command Prompt as Administrator.
+
+Run:
+
+whoami /groups  
+
+Review the output and confirm that it includes:
+
+- IT-Admins  
+- Domain Admins  
+
+This step verifies that the administrative account is receiving the expected group memberships and is functioning with elevated access as intended.
+
+---
+
+# Part 6 — Create and Link a Group Policy Object
+
+## Step 12 — Open Group Policy Management
+
+On the Domain Controller, open Group Policy Management by running:
+
+gpmc.msc  
+
+This tool is used to create, link, and edit Group Policy Objects within the domain.
+
+---
+
+## Step 13 — Create a Workstation Baseline GPO
+
+In Group Policy Management, navigate to:
+
+cyberrange.local → Workstations OU  
+
+Right-click the Workstations OU and select:
+
+Create a GPO in this domain, and link it here  
 
 Name the GPO:
-`Workstation-Baseline-GPO`
 
-Click OK
+Workstation-Baseline-GPO  
 
-## Step 34
-
-Right-click `Workstation-Baseline-GPO`
-
-Select:
-- Edit
-
-This opens the Group Policy Management Editor.
+This GPO is linked directly to the Workstations OU so that the workstation systems moved there in the earlier step will receive the policy.
 
 ---
 
-# Part 9 — Configure Audit Policy in the GPO
+## Step 14 — Edit the New GPO
 
-## Step 35
+Right-click:
+
+Workstation-Baseline-GPO  
+
+Select:
+
+Edit  
+
+This opens the Group Policy editor so audit policy and Remote Desktop settings can be configured.
+
+---
+
+# Part 7 — Configure Audit Policy
+
+## Step 15 — Navigate to Advanced Audit Policy Configuration
 
 Inside the GPO editor, navigate to:
 
@@ -608,372 +349,202 @@ Computer Configuration
 → Advanced Audit Policy Configuration  
 → Audit Policies  
 
-## Step 36
-
-Configure the following categories.
-
-### Account Logon
-
-Open:
-- Credential Validation
-
-Enable:
-- Configure the following audit events
-- Success
-- Failure
-
-Click Apply and OK
-
-## Step 37
-
-### Account Management
-
-Open:
-- User Account Management
-
-Enable:
-- Success
-- Failure
-
-Apply and OK
-
-Then open:
-- Security Group Management
-
-Enable:
-- Success
-- Failure
-
-Apply and OK
-
-## Step 38
-
-### Logon/Logoff
-
-Open:
-- Logon
-
-Enable:
-- Success
-- Failure
-
-Apply and OK
-
-Then open:
-- Logoff
-
-Enable:
-- Success
-
-Apply and OK
-
-## Step 39
-
-### Privilege Use
-
-Open:
-- Sensitive Privilege Use
-
-Enable:
-- Success
-- Failure
-
-Apply and OK
-
-## Step 40
-
-### System
-
-Open:
-- System Integrity
-
-Enable:
-- Success
-- Failure
-
-Apply and OK
-
-These settings provide useful log visibility for authentication, account use, group changes, and privilege activity.
+This section is used to configure the security events that Windows systems will record.
 
 ---
 
-# Part 10 — Enable Remote Desktop Through Group Policy
+## Step 16 — Enable the Required Audit Categories
 
-This allows easier administration and testing of workstations later in the build.
+Enable the following logging settings:
 
-## Step 41
+### Account Logon
+- Credential Validation → Success, Failure  
+
+### Account Management
+- User Account Management → Success, Failure  
+- Security Group Management → Success, Failure  
+
+### Logon/Logoff
+- Logon → Success, Failure  
+- Logoff → Success  
+
+### Privilege Use
+- Sensitive Privilege Use → Success, Failure  
+
+### System
+- System Integrity → Success, Failure  
+
+These settings were selected to provide baseline security visibility into authentication activity, group and user changes, privileged actions, and system integrity events.
+
+At the end of this step, the GPO contains the audit policy needed for later verification and future SOC use.
+
+---
+
+# Part 8 — Enable Remote Desktop Through Group Policy
+
+## Step 17 — Navigate to the Remote Desktop Policy
 
 Still inside the GPO editor, navigate to:
 
 Computer Configuration  
-→ Policies  
 → Administrative Templates  
 → Windows Components  
 → Remote Desktop Services  
 → Remote Desktop Session Host  
 → Connections  
 
-## Step 42
+This path contains the policy used to allow Remote Desktop connections to workstation systems.
+
+---
+
+## Step 18 — Enable the Policy
 
 Open:
-`Allow users to connect remotely using Remote Desktop Services`
 
-Set it to:
-- Enabled
+Allow users to connect remotely using Remote Desktop Services  
 
-Click Apply and OK
+Set the policy to:
 
-If you are using additional firewall rules or security settings later, document those separately, but enabling this policy establishes the workstation-side configuration.
+Enabled  
+
+This step allows workstation systems receiving the GPO to accept Remote Desktop connections, which supports administration and later lab activity.
 
 ---
 
-# Part 11 — Apply Group Policy on the Client Machines
+# Part 9 — Apply Group Policy on Workstations
 
-## Step 43
+## Step 19 — Update Policy on All Workstations
 
-Log into each Windows 10 and Windows 11 workstation using an account with administrative privileges.
-
-## Step 44
-
-Open Command Prompt as Administrator.
+On all workstation systems, open Command Prompt as Administrator.
 
 Run:
-`gpupdate /force`
 
-Wait for the process to complete.
+gpupdate /force  
 
-If prompted to log off or restart, do so.
+After the update completes, restart the workstation.
 
-## Step 45
-
-Repeat this on all domain-joined workstation clients so they all receive the latest policy settings.
+This step is necessary to ensure the new policy settings are applied immediately rather than waiting for normal background refresh timing.
 
 ---
 
-# Part 12 — Verify Group Policy Application
+# Part 10 — Verify GPO Application
 
-## Step 46
+## Step 20 — Run gpresult on a Workstation
 
 On a workstation, open Command Prompt as Administrator.
 
 Run:
-`gpresult /r`
 
-## Step 47
+gpresult /r  
 
-Review the output carefully.
-
-Under `COMPUTER SETTINGS`, confirm that the following appear:
-
-- Workstation-Baseline-GPO
-- Default Domain Policy
-
-If `Workstation-Baseline-GPO` does not appear:
-- Confirm the computer object is in the `Workstations` OU
-- Confirm the GPO is linked to the `Workstations` OU
-- Run `gpupdate /force` again
-- Restart the machine and test again
-
-## Step 48
-
-Optionally, test on multiple workstations to confirm consistency across the environment.
+This command displays which Group Policy Objects are being applied to the system.
 
 ---
 
-# Part 13 — Validate Domain Authentication and Group Structure
+## Step 21 — Confirm the Correct Policies Are Applied
 
-## Step 49
+Under `COMPUTER SETTINGS`, confirm the output includes:
 
-Log into one or more workstations using different types of accounts:
+- Workstation-Baseline-GPO  
+- Default Domain Policy  
 
-- A student account
-- A department employee account
-- The IT admin account if needed for validation
+This verifies that:
 
-Confirm that login succeeds and the domain is being used.
+- the GPO is linked correctly  
+- the workstation is in the correct OU  
+- the policy was successfully applied  
 
-## Step 50
-
-Open Command Prompt and run:
-`whoami`
-
-Verify the format is:
-`cyberrange\username`
-
-and not the local machine name.
-
-## Step 51
-
-If needed, check effective group membership by running:
-`whoami /groups`
-
-Confirm that the expected security groups appear for the logged-in user.
+At this point, policy enforcement for the workstation baseline has been validated.
 
 ---
 
-# Part 14 — Validate Audit Logging
+# Part 11 — Validate Audit Logging
 
-## Step 52
+## Step 22 — Generate Test Activity
 
-Generate some test activity on a workstation:
+On a workstation, generate normal authentication activity by doing the following:
 
-- Log off
-- Attempt one failed login
-- Log in successfully
-- If using the admin account, perform an elevated action
+- Log out  
+- Attempt a failed login  
+- Log in successfully  
 
-## Step 53
+These actions are used to generate security events that should be captured by the audit policy configured earlier.
 
-Open Event Viewer.
+---
 
-Navigate to:
+## Step 23 — Open Event Viewer
+
+Open:
+
 Event Viewer  
 → Windows Logs  
 → Security  
 
-## Step 54
-
-Look for relevant security events such as:
-
-- 4624 — Successful logon
-- 4625 — Failed logon
-- 4634 — Logoff
-- 4672 — Special privileges assigned to new logon
-- 4728 or related group membership events if group changes were made
-
-The exact list may vary depending on what actions you performed, but you should clearly see authentication and security activity being recorded.
+This log is where authentication and security events generated by the configured policy will appear.
 
 ---
 
-# Part 15 — Final Validation Checklist
+## Step 24 — Verify Expected Security Events
 
-Use this checklist to confirm Phase 03 is fully complete.
+Confirm that the following events are present:
 
-## Step 55
+- 4624 — Successful logon  
+- 4634 — Logoff  
+- 4672 — Privileged logon  
+- 5379 — Credential activity  
 
-Confirm OU structure exists exactly as intended:
-
-- Employees
-- Employees\Engineering
-- Employees\Finance
-- Employees\HR
-- Employees\IT
-- STUDENTS
-- Groups
-- Groups\Engineering
-- Groups\Finance
-- Groups\HR
-- Groups\IT
-- Groups\STUDENTS
-- Servers
-- Workstations
-
-## Step 56
-
-Confirm all users exist:
-
-Employees:
-- Emily Davis
-- Michael Brown
-- Sarah Johnson
-- John Smith
-- it admin
-
-Students:
-- Student 01
-- Student 02
-- Student 03
-- Student 04
-- Student 05
-- Student 06
-
-## Step 57
-
-Confirm all groups exist:
-
-- Engineering
-- Finance
-- HR
-- IT
-- IT-Admins
-- STUDENTS
-
-## Step 58
-
-Confirm group membership is correct:
-
-- Emily Davis in Engineering
-- Michael Brown in Finance
-- Sarah Johnson in HR
-- John Smith in IT
-- it admin in IT-Admins
-- Student 01 through Student 06 in STUDENTS
-
-## Step 59
-
-Confirm computer placement is correct:
-
-- All Windows 10 and Windows 11 clients in Workstations
-- File Server in Servers
-- Domain Controller remains in Domain Controllers
-
-## Step 60
-
-Confirm policy and logging work:
-
-- `gpresult /r` shows Workstation-Baseline-GPO
-- Security logs show authentication events
-- Domain login works across clients
+This step proves that audit logging is not just configured, but actively working on the workstation systems.
 
 ---
 
 # Expected Results
 
-When this phase is fully complete, the environment should behave like a centrally managed domain.
+By the end of Phase 03, the following results should be true:
 
-You should have:
-
-- A clean Active Directory OU structure
-- Clearly organized users and groups
-- Proper user-to-group assignments
-- Workstations separated from servers
-- A functioning workstation baseline GPO
-- Security logging that can later support SOC analysis
-- A domain environment that is easier to manage, scale, and monitor
-
----
-
-# Common Mistakes to Avoid
-
-- Creating users in the wrong OU
-- Forgetting to add users to groups
-- Leaving workstation computer objects in the default Computers container
-- Moving the Domain Controller out of the Domain Controllers OU
-- Linking the GPO to the wrong OU
-- Running `gpresult /r` before forcing policy updates
-- Assuming audit policy works without checking Event Viewer
-- Using inconsistent naming for users or groups
+- The Active Directory structure is organized using OUs  
+- User accounts have been created  
+- Security groups have been created  
+- Group memberships have been assigned  
+- Workstations have been placed in the correct OU  
+- Group Policy has been linked and applied successfully  
+- Audit logging is active  
+- Security events are visible in Event Viewer  
+- Administrative access has been confirmed  
 
 ---
 
-# Why This Phase Matters
+# Key Concepts
 
-This phase is the identity and management backbone of the cyber range.
+- OUs define structure and scope for administration and policy  
+- Groups provide role-based access control  
+- Group Policy provides centralized configuration  
+- `gpresult` is used to verify policy application  
+- Event Viewer is used to validate audit logging and security visibility  
 
-Without this structure:
+---
 
-- Permissions become messy
-- Workstations are harder to manage
-- Logging is inconsistent
-- Later file server and attack simulation steps become much harder
+# Common Mistakes
 
-With this structure in place:
+- Not linking the GPO to the correct OU  
+- Not restarting systems after `gpupdate /force`  
+- Leaving workstation computer objects in the wrong container  
+- Running `gpresult /r` without administrative privileges  
+- Assuming audit policy is working without checking Event Viewer  
 
-- Users can be managed centrally
-- Access can be controlled using groups
-- Systems can receive policies based on OU placement
-- Authentication and privilege activity can be tracked
-- The lab starts to behave like a realistic enterprise environment
+---
+
+# Current Environment State
+
+At the end of this phase:
+
+- Users and groups are implemented  
+- Group memberships are assigned  
+- Workstations are organized into the proper OU  
+- The workstation baseline GPO is deployed and functioning  
+- Audit logging is enabled and validated  
+- The domain environment is operational and managed more like an enterprise network  
+
+Because validation was completed, this phase should now be considered complete.
 
 ---
 
@@ -981,43 +552,30 @@ With this structure in place:
 
 Phase 03 is complete when all of the following are true:
 
-- The OU structure is built
-- All users are created
-- All security groups are created
-- All users are added to the proper groups
-- Workstations and servers are placed in their correct OUs
-- The workstation GPO is linked and applied
-- Audit logs are being generated and verified
-- Domain authentication works correctly across the target environment
+- OUs are structured  
+- Users and groups are created  
+- Group memberships are assigned correctly  
+- Workstations are placed in the correct OU  
+- The GPO is created, linked, and applied  
+- The GPO appears in `gpresult`  
+- Security logs are consistently generated  
+- Administrative access is verified  
 
 ---
 
-# Transition to the Next Phase
+# Transition to Phase 04
 
-After this phase, the next major build activities include:
+The next phase focuses on:
 
-- File server deployment and shared folder permissions
-- Additional target environment server builds
-- Web server deployment
-- Vulnerable application deployment
-- Centralized logging expansion
-- SOC telemetry integration
-
-This phase is the point where the cyber range stops being a collection of machines and becomes a manageable enterprise-style lab.
+- File server deployment  
+- Shared folder structure  
+- Access control using AD groups  
+- Permission enforcement  
 
 ---
 
 # Summary
 
-Phase 03 established the Active Directory structure for the target environment inside `cyberrange.local`.
+Phase 03 establishes centralized identity organization, access control, Group Policy enforcement, and audit visibility across the cyber range.
 
-The build included:
-- Department-based Organizational Units
-- Employee and student user accounts
-- Security groups for access control
-- User-to-group assignment
-- Server and workstation organization
-- A workstation baseline Group Policy Object
-- Audit logging for authentication and account activity
-
-At the end of this phase, the environment is organized, centrally managed, and ready for continued expansion into file services, target infrastructure, attack simulation, and SOC visibility.
+This phase moves the environment from a simple domain deployment into a structured, managed enterprise system, providing the control and visibility needed for later enterprise services and security operations.
