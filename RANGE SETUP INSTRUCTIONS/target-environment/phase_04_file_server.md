@@ -494,7 +494,7 @@ This means the environment now contains centralized data, controlled access, and
 
 Next phase:
 
-SOC / Detection Environment Setup
+Target Environment finalization.
 
 ---
 
