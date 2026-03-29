@@ -2,56 +2,60 @@
 
 🚧 Nearly Complete
 
-- Users created
-- Groups implemented
-- GPO deployed
-- Logging enabled
-- Minor cleanup remaining
+- Users created  
+- Groups implemented  
+- GPO deployed  
+- Audit logging enabled  
+- Minor OU cleanup and validation remaining  
+
+---
 
 # Marist SOC Cyber Range  
-## Phase 03 — Active Directory Structure, Users, Groups, and Group Policy
+# Lab Build Guide — Phase 03: Active Directory Structure, Users, Groups, and Group Policy
 
 ---
 
-# Overview
+# Purpose
 
-Phase 03 transforms a basic Active Directory deployment into a structured and managed enterprise environment. This includes organizing directory objects, implementing access control via groups, and enforcing centralized policy using Group Policy Objects (GPOs).
+Phase 03 transforms the cyber range from a basic Active Directory deployment into a structured, enterprise-managed environment.
 
-By completing this phase, the environment will support:
+This phase introduces:
 
-- Structured identity management
-- Role-based access control
-- Centralized endpoint configuration
-- Security auditing and logging
+- Organizational structure (OUs)  
+- Identity management (users)  
+- Role-based access control (groups)  
+- Centralized configuration (Group Policy)  
+- Security visibility (audit logging)  
 
-This phase is critical because it introduces the control and visibility required for both defensive (SOC) and offensive (Red Team) operations later in the project.
+By completing this phase, the environment behaves like a real enterprise network and becomes ready for both defensive (SOC) and offensive (Red Team) operations.
 
 ---
 
-# Lab Objectives
+# Objectives
 
-- Create Organizational Units (OUs)
-- Create users and security groups
-- Assign group memberships
-- Organize computers into OUs
-- Create and apply Group Policy
-- Enable audit logging
-- Validate policy enforcement
+- Create Organizational Units (OUs)  
+- Create users and security groups  
+- Assign group memberships  
+- Organize computers into OUs  
+- Deploy Group Policy Objects (GPOs)  
+- Enable audit logging  
+- Validate policy enforcement  
 
 ---
 
 # Prerequisites
 
-- Proxmox environment running
-- Domain Controller (Windows Server 2022) configured
-- Domain: cyberrange.local
-- Windows 10 and Windows 11 joined to domain
-- Domain login working
+- Proxmox environment operational  
+- Domain Controller (Windows Server 2022) configured  
+- Domain: cyberrange.local  
+- Windows 10 and Windows 11 systems joined to domain  
+- Domain authentication functioning  
 
 ---
 
-# Target AD Structure
+# Target Active Directory Structure
 
+```
 cyberrange.local
 │
 ├── Employees
@@ -59,6 +63,7 @@ cyberrange.local
 ├── Servers
 ├── Workstations
 ├── Groups
+```
 
 ---
 
@@ -69,24 +74,24 @@ cyberrange.local
 On Domain Controller:
 
 Open:
-Active Directory Users and Computers
+Active Directory Users and Computers  
 
 Expand:
-cyberrange.local
+cyberrange.local  
 
 ---
 
 ## Step 2
 
-Right-click domain → New → Organizational Unit
+Right-click domain → New → Organizational Unit  
 
 Create:
 
-Employees  
-IT  
-Servers  
-Workstations  
-Groups  
+- Employees  
+- IT  
+- Servers  
+- Workstations  
+- Groups  
 
 ---
 
@@ -95,35 +100,35 @@ Groups
 ## Step 3 — Employee Users
 
 Navigate to:
-Employees OU
+Employees OU  
 
-Right-click → New → User
+Right-click → New → User  
 
 Create:
 
-jdoe  
-jsmith  
-mjones  
+- jdoe  
+- jsmith  
+- mjones  
 
 Set password:
-Cyberrange2026
 
-Uncheck:
-User must change password
+Cyberrange2026  
 
-Check:
-Password never expires
+Configure:
+
+- Disable: User must change password  
+- Enable: Password never expires  
 
 ---
 
 ## Step 4 — Admin User
 
 Navigate to:
-IT OU
+IT OU  
 
 Create:
 
-itadmin
+- itadmin  
 
 ---
 
@@ -132,34 +137,32 @@ itadmin
 ## Step 5
 
 Navigate to:
-Groups OU
+Groups OU  
 
 Create:
 
-IT-Admins  
-Employees  
+- IT-Admins  
+- Employees  
 
 ---
 
 ## Step 6 — Assign Group Membership
 
-### Add admin:
-
-Open IT-Admins → Members → Add
+### IT-Admins Group
 
 Add:
-itadmin
+
+- itadmin  
 
 ---
 
-### Add employees:
-
-Open Employees group
+### Employees Group
 
 Add:
-jdoe  
-jsmith  
-mjones  
+
+- jdoe  
+- jsmith  
+- mjones  
 
 ---
 
@@ -168,42 +171,43 @@ mjones
 ## Step 7
 
 Navigate to:
-Computers container
+Computers container  
 
-Find:
+Locate all domain-joined systems:
 
-WIN10-USER-01  
-WIN11-USER-01  
+- Windows 10 machines  
+- Windows 11 machines  
 
-Right-click → Move
+Right-click → Move  
 
 Move to:
-Workstations OU
+
+Workstations OU  
 
 ---
 
-# Part 5 — Verify Admin Access
+# Part 5 — Verify Administrative Access
 
 ## Step 8
 
-Log into Windows 10 as:
+Log into a workstation:
 
-CYBERRANGE\itadmin
+CYBERRANGE\itadmin  
 
 ---
 
 ## Step 9
 
-Open Command Prompt (Admin)
+Open Command Prompt (Admin)  
 
 Run:
 
-whoami /groups
+whoami /groups  
 
-Verify:
+Verify membership includes:
 
-IT-Admins  
-Domain Admins  
+- IT-Admins  
+- Domain Admins  
 
 ---
 
@@ -214,35 +218,36 @@ Domain Admins
 On Domain Controller:
 
 Run:
-gpmc.msc
+
+gpmc.msc  
 
 ---
 
 ## Step 11
 
-Navigate to:
+Navigate:
 
-cyberrange.local → Workstations OU
+cyberrange.local → Workstations OU  
 
 Right-click:
 
-Create a GPO in this domain, and link it here
+Create a GPO in this domain, and link it here  
 
 Name:
 
-Workstation-Baseline-GPO
+Workstation-Baseline-GPO  
 
 ---
 
 ## Step 12
 
-Right-click GPO → Edit
+Right-click GPO → Edit  
 
 ---
 
 # Part 7 — Configure Audit Policy
 
-Navigate to:
+Navigate:
 
 Computer Configuration  
 → Policies  
@@ -253,30 +258,30 @@ Computer Configuration
 
 ---
 
-## Step 13 — Enable the following
+## Step 13 — Enable Logging
 
-Account Logon:
-Credential Validation → Success, Failure
+### Account Logon
+- Credential Validation → Success, Failure  
 
-Account Management:
-User Account Management → Success, Failure  
-Security Group Management → Success, Failure  
+### Account Management
+- User Account Management → Success, Failure  
+- Security Group Management → Success, Failure  
 
-Logon/Logoff:
-Logon → Success, Failure  
-Logoff → Success  
+### Logon/Logoff
+- Logon → Success, Failure  
+- Logoff → Success  
 
-Privilege Use:
-Sensitive Privilege Use → Success, Failure  
+### Privilege Use
+- Sensitive Privilege Use → Success, Failure  
 
-System:
-System Integrity → Success, Failure  
+### System
+- System Integrity → Success, Failure  
 
 ---
 
 # Part 8 — Enable Remote Desktop
 
-Navigate to:
+Navigate:
 
 Computer Configuration  
 → Administrative Templates  
@@ -287,70 +292,54 @@ Computer Configuration
 
 Enable:
 
-Allow users to connect remotely using Remote Desktop Services
+Allow users to connect remotely using Remote Desktop Services  
 
 ---
 
 # Part 9 — Apply Group Policy
 
-## Step 14 — Windows 10
+## Step 14 — All Workstations
 
-Open Command Prompt as Administrator
-
-Run:
-
-gpupdate /force
-
-Restart machine
-
----
-
-## Step 15 — Windows 11
+Open Command Prompt (Admin)  
 
 Run:
 
-gpupdate /force
+gpupdate /force  
 
-Restart machine
+Restart system  
 
 ---
 
 # Part 10 — Verify GPO Application
 
-## Step 16
+## Step 15
 
-On Windows 10:
+On a workstation, run:
 
-Open Command Prompt (Admin)
-
-Run:
-
-gpresult /r
+gpresult /r  
 
 ---
 
-## Step 17 — Verify Output
+## Step 16 — Verify Output
 
 Under COMPUTER SETTINGS confirm:
 
-Workstation-Baseline-GPO  
-Default Domain Policy  
+- Workstation-Baseline-GPO  
+- Default Domain Policy  
 
 ---
 
 # Part 11 — Validate Logging
 
-## Step 18
+## Step 17 — Generate Activity
 
-Generate activity:
-
-- Log out
-- Attempt incorrect login
-- Log in successfully
+- Log out  
+- Attempt failed login  
+- Log in successfully  
 
 ---
 
-## Step 19
+## Step 18
 
 Open:
 
@@ -360,46 +349,63 @@ Event Viewer
 
 ---
 
-## Step 20 — Verify Events
+## Step 19 — Verify Events
 
-Look for:
+Confirm presence of:
 
-4624 — Successful logon  
-4634 — Logoff  
-4672 — Special privileges  
-5379 — Credential activity  
+- 4624 — Successful logon  
+- 4634 — Logoff  
+- 4672 — Privileged logon  
+- 5379 — Credential activity  
 
 ---
 
 # Expected Results
 
-- AD structure fully organized
-- Users and groups created and assigned
-- Workstations properly placed in OU
-- GPO successfully applied
-- GPO visible in gpresult
-- Audit logs actively generated
-- Domain environment behaves like enterprise network
+- Active Directory structure fully organized  
+- Users and groups created and assigned  
+- Workstations properly placed in correct OU  
+- GPO successfully applied and enforced  
+- Policies visible in gpresult  
+- Audit logs actively generated  
+- Domain environment behaves like enterprise network  
 
 ---
 
 # Key Concepts
 
-- OUs provide structure and policy targeting
-- Groups control access and permissions
-- GPO enforces centralized configuration
-- gpresult verifies policy application
-- Event Viewer confirms real system behavior
+- OUs define structure and policy scope  
+- Groups enforce role-based access control  
+- GPO provides centralized configuration management  
+- gpresult verifies policy application  
+- Event Viewer provides security visibility  
 
 ---
 
 # Common Mistakes
 
-- Not running gpresult as admin
-- Not linking GPO to correct OU
-- Forgetting to restart machines
-- Misplacing users or computers
-- Assuming GPO works without verification
+- Not linking GPO to correct OU  
+- Not restarting machines after gpupdate  
+- Misplacing computers outside intended OU  
+- Not running gpresult as administrator  
+- Assuming GPO applies without validation  
+
+---
+
+# Current Environment State
+
+At this stage:
+
+- Users and groups are fully implemented  
+- GPO is deployed and functioning  
+- Audit logging is active  
+- Domain environment is operational  
+
+Remaining work:
+
+- OU cleanup and refinement  
+- Group validation  
+- Final permission alignment  
 
 ---
 
@@ -407,15 +413,28 @@ Look for:
 
 Phase 03 is complete when:
 
-- OUs are created and populated
-- Users and groups are configured
-- Machines are in correct OUs
-- GPO is created and linked
-- GPO appears in gpresult
-- Security logs are generated
+- OUs are fully structured  
+- Users and groups are properly assigned  
+- Machines are placed in correct OU  
+- GPO is created, linked, and applied  
+- GPO appears in gpresult  
+- Security logs are consistently generated  
+
+---
+
+# Transition to Phase 04
+
+Next phase:
+
+- File server deployment  
+- Shared folder structure  
+- Access control using AD groups  
+- Permission enforcement  
 
 ---
 
 # Summary
 
-Phase 03 establishes centralized identity, structure, and policy enforcement across the cyber range. This phase marks the transition from a simple domain to a fully managed enterprise environment, enabling future attack simulations and SOC monitoring capabilities.
+Phase 03 establishes centralized identity, access control, and policy enforcement across the cyber range.
+
+This phase marks the transition from a simple domain environment to a fully managed enterprise system, enabling realistic user behavior, controlled access to resources, and SOC-ready logging and visibility.
