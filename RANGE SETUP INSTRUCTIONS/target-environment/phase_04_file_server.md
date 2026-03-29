@@ -1,33 +1,35 @@
 ## Status
 
-🚧 Functionally Complete
+✅ Completed
 
-- File server deployed  
+- File Server deployed  
 - Shares created  
 - Permissions implemented  
-- Access control working  
-
-⚠️ May be extended later with additional enterprise services  
+- Access control validated  
+- Enterprise-style data populated  
+- File services functioning properly  
 
 ---
 
 # Marist SOC Cyber Range  
 # Lab Build Guide — Phase 04: Enterprise File Services
 
+Source File: :contentReference[oaicite:0]{index=0}
+
 ---
 
 # Purpose
 
-Phase 04 expands the cyber range from identity and policy management into a **real enterprise data environment**.
+Phase 04 expands the cyber range from identity and policy management into a real enterprise data environment.
 
 This phase introduces:
 
 - Centralized file storage  
 - Department-based data separation  
-- Role-based access control (RBAC) using AD groups  
+- Role-based access control using Active Directory groups  
 - Realistic business data for attack and detection scenarios  
 
-By completing this phase, the environment now behaves like a real company network where **data access depends on identity**, which is critical for both red team and SOC operations.
+By the end of this phase, the environment behaves more like a real company network where data access depends on identity. This is important because it gives both the Red Team and the SOC meaningful resources to attack, defend, and monitor.
 
 ---
 
@@ -45,11 +47,13 @@ By completing this phase, the environment now behaves like a real company networ
 
 # Prerequisites
 
-- Domain Controller operational  
-- Active Directory configured (Phase 02 & 03 complete)  
-- Users and groups created  
-- Windows 10/11 endpoints domain joined  
-- Target network functioning (10.20.20.0/24)  
+Before beginning this phase, the following must already be complete:
+
+- Domain Controller is operational  
+- Active Directory is configured  
+- Users and groups already exist or are ready to be created  
+- Windows 10 and Windows 11 endpoints are domain joined  
+- The Target network is functioning on `10.20.20.0/24`  
 
 ---
 
@@ -57,119 +61,151 @@ By completing this phase, the environment now behaves like a real company networ
 
 By the end of this phase:
 
-- File Server is deployed and domain joined  
+- The File Server is deployed and joined to the domain  
 - Department shares exist  
-- Data is populated  
-- Permissions are enforced using AD groups  
-- Users see only what they are supposed to see  
+- Data is populated in shared folders  
+- Permissions are enforced using Active Directory groups  
+- Access control is working as designed  
 
 ---
 
-# Part 1 — Build File Server
+# Part 1 — Build the File Server
 
-## Step 1 — Create VM
+## Step 1 — Create the Virtual Machine
 
-Create Windows Server 2022 VM:
+Create a new Windows Server 2022 VM.
+
+Use the following configuration details:
 
 - Name: `File-Server`  
 - Network: Target subnet  
-- Ensure NIC is attached  
+- Ensure the NIC is attached  
+
+This VM will act as the central file storage server for the Target Environment.
 
 ---
 
-## Step 2 — Fix Network (if needed)
+## Step 2 — Fix Network Issues if Needed
 
-If no connectivity:
+If the VM boots but has no connectivity:
 
-- Verify network adapter exists in Proxmox  
+- Verify that the network adapter exists in Proxmox  
 - Install VirtIO drivers if required  
-- Reboot  
+- Reboot the system  
+
+This ensures the server can communicate on the target network before any domain or file service configuration is attempted.
 
 ---
 
-## Step 3 — Configure Static IP
+## Step 3 — Configure Static IPv4 Settings
 
-```
-IP Address: 10.20.20.30  
-Subnet Mask: 255.255.255.0  
-Gateway: 10.20.20.1  
-DNS: 10.20.20.10  
-```
+Assign the following static IP settings to the server:
+
+IP Address: `10.20.20.30`  
+Subnet Mask: `255.255.255.0`  
+Gateway: `10.20.20.1`  
+DNS: `10.20.20.10`  
+
+This gives the File Server a fixed address and points it to the Domain Controller for DNS resolution.
 
 ---
 
 ## Step 4 — Verify Connectivity
 
-```
-ping 10.20.20.10
-```
+Open Command Prompt and run:
+
+`ping 10.20.20.10`
+
+Successful replies confirm that the File Server can communicate with the Domain Controller.
 
 ---
 
-# Part 2 — Join Domain
+# Part 2 — Join the File Server to the Domain
 
-## Step 5 — Rename Server
+## Step 5 — Rename the Server
 
-```
-File-Server
-```
+Rename the machine to:
 
-Reboot  
+`File-Server`
 
----
+Reboot the server after renaming.
 
-## Step 6 — Join Domain
-
-- Open Server Manager  
-- Change from Workgroup → Domain  
-
-```
-cyberrange.local
-```
-
-- Enter admin credentials  
-- Reboot  
+Using the intended hostname first helps keep the domain clean and avoids renaming the machine later after it has already joined Active Directory.
 
 ---
 
-## Step 7 — Validate
+## Step 6 — Join the Domain
 
-- Login with domain account  
-- Confirm server appears in AD  
+Open Server Manager and change the system from Workgroup membership to Domain membership.
 
----
+Join the following domain:
 
-# Part 3 — Create Share Structure
+`cyberrange.local`
 
-## Step 8 — Create Root Folder
+When prompted, enter administrative credentials.
 
-```
-C:\Shares
-```
+Reboot after the join completes.
 
 ---
 
-## Step 9 — Create Departments
+## Step 7 — Validate the Domain Join
 
-```
-C:\Shares\
-├── HR
-├── Payroll
-├── IT
-├── Finance
-├── Engineering
-├── Legal
-├── Executive
-└── Public
-```
+After reboot:
+
+- Log in with a domain account  
+- Confirm that the File Server appears in Active Directory  
+
+This verifies that the domain join completed successfully and the server is now part of the enterprise environment.
 
 ---
 
-# Part 4 — Populate Data
+# Part 3 — Create the Share Structure
 
-Create `.txt` files to simulate real enterprise data.
+## Step 8 — Create the Root Folder
 
-## Example Sensitive Data
+Create the following folder on the C: drive:
+
+`C:\Shares`
+
+This folder will serve as the parent location for all departmental shares.
+
+---
+
+## Step 9 — Create Department Folders
+
+Inside `C:\Shares`, create the following folders:
+
+- HR  
+- Payroll  
+- IT  
+- Finance  
+- Engineering  
+- Legal  
+- Executive  
+- Public  
+
+The final folder structure should be:
+
+`C:\Shares\HR`  
+`C:\Shares\Payroll`  
+`C:\Shares\IT`  
+`C:\Shares\Finance`  
+`C:\Shares\Engineering`  
+`C:\Shares\Legal`  
+`C:\Shares\Executive`  
+`C:\Shares\Public`  
+
+This structure simulates how a real company separates departmental data.
+
+---
+
+# Part 4 — Populate the File Shares with Data
+
+## Step 10 — Create Example Business Files
+
+Create `.txt` files inside the departmental folders to simulate real enterprise data.
+
+Use the following examples:
 
 ### HR
 - Employee-List.txt  
@@ -189,218 +225,276 @@ Create `.txt` files to simulate real enterprise data.
 ### Public
 - Company-Policy.txt  
 
----
-
-# Part 5 — Active Directory Users
-
-## Step 10 — Create Company Users
-
-Example:
-
-```
-sjohnson   - HR  
-mwilson    - HR Manager  
-itadmin    - IT  
-acarter    - IT  
-mbrown     - Finance  
-lwhite     - Finance  
-edavis     - Engineering  
-klee       - Engineering  
-```
+These files provide realistic content for later use in access-control testing, attack simulation, and SOC monitoring scenarios.
 
 ---
 
-## Step 11 — Create Student Users
+# Part 5 — Create Active Directory Users
 
-```
-student01 → student06
-```
+## Step 11 — Create Company Users
+
+Create the following example users:
+
+- `sjohnson` → HR  
+- `mwilson` → HR Manager  
+- `itadmin` → IT  
+- `acarter` → IT  
+- `mbrown` → Finance  
+- `lwhite` → Finance  
+- `edavis` → Engineering  
+- `klee` → Engineering  
+
+These users represent normal enterprise accounts that will be used to test permissions and access behavior.
 
 ---
 
-## Step 12 — Create STUDENTS Group
+## Step 12 — Create Student Users
 
-Add all student users  
+Create the following student accounts:
+
+- `student01`  
+- `student02`  
+- `student03`  
+- `student04`  
+- `student05`  
+- `student06`  
+
+These users provide additional accounts for access testing and training scenarios.
+
+---
+
+## Step 13 — Create the STUDENTS Group
+
+Create:
+
+`STUDENTS`
+
+Add all student users to this group.
+
+This allows permissions to be managed through a single group rather than assigning permissions account by account.
 
 ---
 
 # Part 6 — Create Security Groups
 
-## Step 13 — Create Groups
+## Step 14 — Create Department and Role Groups
 
-```
-HR-Users  
-HR-Managers  
-IT-Users  
-IT-Admins  
-Finance-Users  
-Engineering-Users  
-STUDENTS  
-```
+Create the following security groups:
 
----
+- `HR-Users`  
+- `HR-Managers`  
+- `IT-Users`  
+- `IT-Admins`  
+- `Finance-Users`  
+- `Engineering-Users`  
+- `STUDENTS`  
 
-## Step 14 — Assign Members
-
-Example:
-
-```
-sjohnson → HR-Users  
-mwilson → HR-Managers  
-itadmin → IT-Admins  
-```
+These groups are used to apply permissions to folders based on role and department.
 
 ---
 
-# Part 7 — Apply Permissions
+## Step 15 — Assign Group Membership
 
-## Step 15 — Break Inheritance
+Add users to the correct groups.
+
+Examples given in this phase:
+
+- `sjohnson` → `HR-Users`  
+- `mwilson` → `HR-Managers`  
+- `itadmin` → `IT-Admins`  
+
+Follow the same pattern for the other department users.
+
+This is a critical step because permissions in this phase are based on groups, not direct user assignments.
+
+---
+
+# Part 7 — Apply Folder Permissions
+
+## Step 16 — Open Advanced Security Settings
 
 For each sensitive folder:
 
-- Properties → Security → Advanced  
-- Disable inheritance  
-- Convert permissions  
+- Right-click the folder  
+- Select Properties  
+- Open the Security tab  
+- Click Advanced  
+
+This is where the folder’s NTFS permissions are modified.
 
 ---
 
-## Step 16 — Remove Broad Access
+## Step 17 — Break Inheritance
+
+For each sensitive folder:
+
+- Click Disable inheritance  
+- Choose Convert inherited permissions  
+
+This preserves the existing entries as editable explicit permissions and allows custom access control to be applied to each folder.
+
+---
+
+## Step 18 — Remove Broad Access
 
 Remove:
 
-```
-Users (local)
-```
+`Users (local)`
+
+This is done so that broad or overly permissive local access is removed before the department-based permissions are applied.
 
 ---
 
-## Step 17 — Apply Group-Based Permissions
+## Step 19 — Apply Group-Based Permissions
+
+Apply the following NTFS permissions to the folders.
 
 ### HR
-```
-HR-Users → Modify  
-HR-Managers → Full Control  
-```
+- `HR-Users` → Modify  
+- `HR-Managers` → Full Control  
 
 ### Payroll
-```
-HR-Managers → Full Control  
-```
+- `HR-Managers` → Full Control  
 
 ### IT
-```
-IT-Users → Full Control  
-IT-Admins → Full Control  
-```
+- `IT-Users` → Full Control  
+- `IT-Admins` → Full Control  
 
 ### Finance
-```
-Finance-Users → Modify  
-```
+- `Finance-Users` → Modify  
 
 ### Engineering
-```
-Engineering-Users → Modify  
-```
+- `Engineering-Users` → Modify  
 
 ### Public
-```
-Domain Users → Modify  
-```
+- `Domain Users` → Modify  
+
+These permissions implement role-based access control using Active Directory groups.
 
 ---
 
-## Step 18 — Keep Required Entries
+## Step 20 — Keep Required Entries
 
-Do NOT remove:
+Do not remove the following entries:
 
-```
-SYSTEM  
-Administrators  
-CREATOR OWNER  
-```
+- `SYSTEM`  
+- `Administrators`  
+- `CREATOR OWNER`  
+
+These are required system or administrative entries that should remain in place.
 
 ---
 
 # Part 8 — Validate Access
 
-## Step 19 — Test by Role
+## Step 21 — Test Access by Role
+
+From a client machine, test file share access using different user accounts.
 
 ### HR User
-```
-\\File-Server\HR → Allowed  
-\\File-Server\IT → Denied  
-```
+Verify:
+
+`\\File-Server\HR` → Allowed  
+`\\File-Server\IT` → Denied  
 
 ### IT User
-```
-\\File-Server\IT → Allowed  
-\\File-Server\HR → Denied  
-```
+Verify:
+
+`\\File-Server\IT` → Allowed  
+`\\File-Server\HR` → Denied  
 
 ### Student
-```
-\\File-Server\Public → Allowed  
-```
+Verify:
+
+`\\File-Server\Public` → Allowed  
+
+This step confirms that folder access behaves according to group membership.
 
 ---
 
 # Part 9 — Key Concepts
 
-- Access is based on **groups**, not users  
-- Users ≠ machines  
-- File server is central data source  
-- Permissions enforce least privilege  
+This phase is built on several core concepts:
+
+- Access is based on groups, not users  
+- Users are separate from machines  
+- The File Server becomes the central enterprise data source  
+- Permissions are used to enforce least privilege  
+
+These concepts are what make the file services environment behave like a real enterprise network.
 
 ---
 
 # Part 10 — Troubleshooting
 
-## Cannot remove permission
-→ Disable inheritance first  
+## Issue — Cannot Remove a Permission Entry
 
-## Wrong AD object
-```
-OU ≠ Group
-```
+Fix:
 
-## Cannot delete OU
-→ Disable "protect from accidental deletion"  
+Disable inheritance first
+
+If permissions are inherited, some entries cannot be removed until inheritance is disabled and converted.
+
+---
+
+## Issue — Wrong Active Directory Object Used
+
+Important reminder:
+
+`OU ≠ Group`
+
+An Organizational Unit is used for structure and administration.
+
+A Group is used for assigning permissions.
+
+They are not interchangeable.
+
+---
+
+## Issue — Cannot Delete an OU
+
+Fix:
+
+Disable:
+
+`Protect object from accidental deletion`
+
+This is a common issue when trying to modify or remove Organizational Units.
 
 ---
 
 # Phase Completion Summary
 
-## Completed
+At the completion of this phase:
 
-- File Server deployed  
-- Shares created  
-- AD users and groups created  
-- Group-based permissions implemented  
-- Access validation successful  
+- File Server is deployed  
+- Shares are created  
+- Active Directory users and groups are created  
+- Group-based permissions are implemented  
+- Access validation is successful  
+
+Because validation was completed and access control is functioning, this phase should now be considered complete.
 
 ---
 
 # Current Environment State
 
-The Target Environment is now:
+At the end of this phase, the Target Environment is:
 
 - Fully functional  
 - Enterprise-like  
 - Ready for attack simulation  
 - Ready for SOC monitoring  
 
-Remaining:
-
-- Minor permission tuning  
-- OU cleanup  
-- Final validation  
+This means the environment now contains centralized data, controlled access, and realistic enterprise structure.
 
 ---
 
 # Next Phase
 
-➡️ SOC / Detection Environment Setup  
+Next phase:
+
+SOC / Detection Environment Setup
 
 ---
 
@@ -408,9 +502,11 @@ Remaining:
 
 Phase 04 introduces real enterprise data and access control into the cyber range.
 
-This transforms the environment from a structured network into a **realistic organization**, enabling:
+This phase transforms the environment from a structured network into a realistic organization by adding:
 
-- Insider threat scenarios  
-- Credential abuse attacks  
-- File access monitoring  
-- SOC detection use cases  
+- Centralized file storage  
+- Department-based separation of data  
+- Group-based access control  
+- Realistic business files for attack and monitoring scenarios  
+
+With this phase complete, the environment is better prepared for insider threat scenarios, credential abuse, file access monitoring, and broader SOC detection use cases.
