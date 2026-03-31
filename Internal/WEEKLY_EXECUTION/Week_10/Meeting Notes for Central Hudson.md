@@ -134,3 +134,13 @@ For every answer provided, map it to:
 Thank you for your insights — this will directly influence how we design our scenarios and training environment.
 
 We look forward to implementing your recommendations and sharing progress in future meetings.
+
+---
+
+## Notes
+
+-
+-
+-
+-
+-
