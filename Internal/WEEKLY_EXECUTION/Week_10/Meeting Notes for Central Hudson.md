@@ -1,11 +1,13 @@
 
 # Central Hudson Meeting Prep
 
-## 🔹 Quick Verbal Summary (To Read in Meeting)
+## Quick Verbal Summary (Read in Meeting)
 
 Since our last meeting, we’ve built out the core cyber range architecture inside Proxmox with three segmented environments: Red Team, Target, and SOC/Detection.
+
 At this point, we’ve completed both the Red Team and Target environments, including Active Directory, multiple Windows endpoints, and vulnerable systems for attack simulation.
-Right now, we’re moving into the SOC/Detection phase and beginning scenario design, so we’re really looking to use your input today to make sure what we build reflects real-world environments.
+
+Right now, we’re moving into the SOC/Detection phase and beginning scenario design, so we’re looking to use your input today to ensure what we build reflects real-world environments.
 
 ## 🔹Questions for Central Hudson:
 
@@ -28,17 +30,6 @@ Right now, we’re moving into the SOC/Detection phase and beginning scenario de
 
 ---
 
-# Central Hudson Meeting Prep
-
-## Quick Verbal Summary (Read in Meeting)
-
-Since our last meeting, we’ve built out the core cyber range architecture inside Proxmox with three segmented environments: Red Team, Target, and SOC/Detection.
-
-At this point, we’ve completed both the Red Team and Target environments, including Active Directory, multiple Windows endpoints, and vulnerable systems for attack simulation.
-
-Right now, we’re moving into the SOC/Detection phase and beginning scenario design, so we’re looking to use your input today to ensure what we build reflects real-world environments.
-
----
 
 ## Primary Discussion Focus
 
