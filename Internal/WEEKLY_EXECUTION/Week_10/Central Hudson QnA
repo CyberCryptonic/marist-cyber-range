@@ -1,0 +1,93 @@
+1. Scenario types to implement (limit to 5) 
+If you only build five scenarios, consider focusing on what consumes time and attention in a real SOC, not edge-case nation-state activity. 
+Recommended scenarios 
+
+1.	Phishing → Credential Compromise → Lateral Movement 
+o	Initial user reported phishing email 
+o	Successful credential capture 
+o	Suspicious signin or mailbox access 
+o	Secondary activity (mailbox rules, MFA fatigue attempt, or internal phishing) 
+o	Why: This is one of the most common real-world incident chains we see 
+
+2.	Endpoint Malware / Suspicious Process Execution 
+o	Defender/XDR alert on a workstation 
+o	Ambiguous signal (living off the land tools, PowerShell, scheduled task) 
+o	Requires triage, scoping, and containment—not just “delete the file” 
+o	Why: Most alerts are not clean malware hits; judgment matters 
+
+3.	Misconfiguration Leading to Exposure 
+o	Example: logging disabled on a critical server, overly permissive firewall rule, or stale service account 
+o	Students must discover the gap before or after suspicious activity 
+o	Why: Real incidents often start with control failure, not attacker brilliance 
+
+4.	Web Application or Perimeter Alert with Low Context 
+o	WAF / firewall alert with IP reputation data 
+o	Conflicting signals (some tools say “high risk,” others don’t) 
+o	Students must decide: block, monitor, or escalate 
+o	Why: This mirrors daily triage work and threat intel correlation 
+
+5.	User Reported “Something Feels Off” 
+o	Vague ticket or email from a user 
+o	No clean alerts at first 
+o	Students must gather logs, ask clarifying questions, and decide severity 
+o	Why: Many real investigations start this way, not from perfect alerts 
+
+2. Common blind spots to intentionally avoid 
+Based on real environments: 
+•	Perfect visibility: Don’t give students complete logs by default. Missing or delayed telemetry is realistic.  
+•	Single tool answers: No one tool tells the full story. Require correlation across sources (endpoint + email + identity). 
+•	Binary “malicious vs benign” outcomes: Most investigations end as “suspicious but unconfirmed.” That’s normal. 
+•	Ignoring documentation: Force students to document decisions even when the answer is “no action taken”.  
+
+3. Operational challenges worth simulating 
+These are realistic and valuable for students to experience: 
+•	Time pressure 
+o	Multiple alerts arriving at once 
+o	Interruptions mid-investigation 
+•	Imperfect communication 
+o	Vague tickets 
+o	Delayed responses from “users” or “IT teams” 
+•	Context switching 
+o	Students must pause one incident to handle another 
+o	Mirrors real SOC workload patterns 
+
+4. External constraints to intentionally model 
+To keep the range realistic: 
+•	Tool limitations 
+o	Rate-limited queries 
+o	Delayed log ingestion 
+o	Partial data from one system 
+•	Staffing constraints 
+o	One student handling multiple incidents 
+o	No “Tier 3 expert” available on demand 
+•	Approval delays 
+o	How to deal with speedbumps like approval being required for blocking an IP, disabling an account, or isolating a host. 
+o	Reflects real change control processes 
+
+5. Skills students should develop (and how to test them) 
+Core skills to build 
+•	Triage and prioritization 
+•	Evidence preservation 
+•	Clear written incident notes 
+•	Knowing when not to escalate 
+•	Communicating uncertainty professionally 
+Practical task ideas 
+•	Require a one-page incident summary before containment actions 
+•	Force students to choose:  
+o	Escalate vs. monitor 
+o	Contain vs. observe 
+•	Penalize:  
+o	Poor documentation 
+o	Overreaction without evidence 
+
+6. Real-world KPIs to measure success 
+Avoid flashy metrics. Use what SOCs track: 
+Operational KPIs 
+•	Time to Triage (TTT) – how quickly the alert is understood 
+•	Time to Containment (TTC) – if containment is justified 
+•	False Positive Rate – did they overreact? 
+•	Documentation Quality – could another analyst take over? 
+•	Coverage Awareness – did they recognize logging gaps? 
+ 
+Final guidance for the students 
+A good cyber range does not reward heroics. It rewards sound judgment, calm triage, clear communication, and knowing your limits. 
