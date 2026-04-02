@@ -31,7 +31,7 @@ The Target Environment has been fully built, validated, and is ready for SOC / D
 - ✅ Windows Log Server Deployment (Prepared)
 - ✅ IT Admin Workstation Deployment
 - ✅ Incident Response Workstation Deployment
-- ✅ Vulnerable Training Server Deployment
+- ✅ Vulnerable Training Server Deployment (Docker-based application)
 - ✅ Blue Team Analysis Workstation (Kali Purple)
 - ✅ Full Target Environment Validation Completed
 
@@ -51,8 +51,8 @@ The Target Environment has been fully built, validated, and is ready for SOC / D
 ## Systems Included
 
 ### Core Infrastructure
-- Primary-Domain-Server
-- Backup-Domain-Server
+- Primary-Domain-Server (DNS)
+- Backup-Domain-Server (DNS)
 - File-Server
 - Internal Web Server
 - Windows Log Server
@@ -67,7 +67,18 @@ The Target Environment has been fully built, validated, and is ready for SOC / D
 - Blue Team Analysis Workstation (Kali Purple)
 
 ### Attack Surface
-- Vulnerable Training Server
+- Vulnerable Training Server (DVWA / Juice Shop via Docker)
+
+---
+
+## Network Design Notes
+
+- DHCP is managed externally (not on domain controllers)
+- All domain-joined systems use:
+  - Primary DNS: `10.20.20.10`
+  - Secondary DNS: `10.20.20.11`
+- Servers use static IP addressing
+- Client systems use DHCP for dynamic assignment
 
 ---
 
@@ -96,7 +107,7 @@ All systems are:
 - Centralized log server preparation
 - Administrative and IR workstations
 - Blue team analysis workstation
-- Vulnerable application environment
+- Vulnerable application environment (Docker-based deployment)
 - Full inter-system connectivity validation
 
 ---
