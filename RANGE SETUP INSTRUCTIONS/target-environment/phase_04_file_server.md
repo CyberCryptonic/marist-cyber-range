@@ -105,6 +105,14 @@ IP Address: `10.20.20.30`
 Subnet Mask: `255.255.255.0`  
 Gateway: `10.20.20.1`  
 DNS: `10.20.20.10`  
+Secondary DNS: `10.20.20.11`
+
+Important:
+
+- DHCP is managed externally in this environment (not on domain controllers)
+- All domain-joined systems must use the domain controllers for DNS
+- Primary DNS: 10.20.20.10
+- Secondary DNS: 10.20.20.11
 
 This gives the File Server a fixed address and points it to the Domain Controller for DNS resolution.
 
