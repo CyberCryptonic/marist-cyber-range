@@ -222,6 +222,12 @@ Subnet Mask: 255.255.255.0
 Gateway: 10.20.20.1  
 DNS: 127.0.0.1  
 
+Important:
+
+- DHCP is managed externally in this environment (not on the Domain Controller)
+- The Domain Controller must still act as the DNS server for the domain
+- All domain-joined systems must use 10.20.20.10 as their primary DNS server
+
 ## Step 15 — Test Connectivity
 
 Run:
