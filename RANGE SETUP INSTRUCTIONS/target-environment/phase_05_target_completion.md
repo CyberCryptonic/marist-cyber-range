@@ -92,7 +92,16 @@ Target network details:
 
 - Subnet: `10.20.20.0/24`
 - Gateway: `10.20.20.1`
-- Domain Controller / DNS: `10.20.20.10`
+- Domain Controller / DNS:
+ Primary: 10.20.20.10
+ Secondary: 10.20.20.11
+
+Important:
+
+- DHCP is managed externally in this environment (not on domain controllers)
+- All domain-joined systems must use the domain controllers for DNS
+- Primary DNS: 10.20.20.10
+- Secondary DNS: 10.20.20.11
 
 Every Windows system that joins the domain should use the domain DNS server.
 
@@ -171,6 +180,7 @@ Example format:
 - Subnet mask: `255.255.255.0`
 - Default gateway: `10.20.20.1`
 - Preferred DNS: `10.20.20.10`
+- Alternate DNS: `10.20.20.11`
 
 Important:
 - Do not use DHCP for a domain controller
@@ -376,6 +386,7 @@ Use:
 - Subnet mask `255.255.255.0`
 - Gateway `10.20.20.1`
 - DNS `10.20.20.10`
+- Secondary DNS `10.20.20.11`
 
 ---
 
@@ -521,6 +532,7 @@ Set:
 - Subnet mask `255.255.255.0`
 - Gateway `10.20.20.1`
 - DNS `10.20.20.10`
+- Secondary DNS `10.20.20.11`
 
 ---
 
@@ -635,7 +647,13 @@ Restart after renaming
 
 ## Step 40 — Configure Static or Planned IP Address
 
-Depending on your addressing approach, assign the correct workstation IP in the Target network
+Important:
+
+- This environment uses DHCP for client systems
+- Do NOT configure a static IP unless explicitly required
+- Ensure the system receives:
+  - IP from DHCP
+  - DNS: 10.20.20.10
 
 Use:
 - Valid `10.20.20.x`
@@ -836,7 +854,26 @@ If using Docker-based deployment:
 
 Install the intended vulnerable application according to your topology plan
 
-Examples that fit the project:
+Examples that fit the project:Recommended Implementation:
+
+If using Docker-based deployment:
+
+Example DVWA deployment:
+
+- Install Docker
+- Run:
+  docker run -d -p 80:80 vulnerables/web-dvwa
+
+Example Juice Shop deployment:
+
+- Run:
+  docker run -d -p 3000:3000 bkimminich/juice-shop
+
+Important:
+
+- Ensure the application is accessible from another machine
+- Verify correct port exposure (80 for DVWA, 3000 for Juice Shop)
+- This system must act as a reachable attack surface for later phases
 - DVWA
 - Juice Shop
 
@@ -859,6 +896,11 @@ From a client machine:
 Confirm the site loads
 
 This is the main proof that the vulnerable target is ready for later attack scenarios
+
+Example:
+
+- http://10.20.20.x
+- http://10.20.20.x:3000
 
 ---
 
