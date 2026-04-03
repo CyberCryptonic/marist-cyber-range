@@ -4,7 +4,7 @@
 This document tracks all IP address assignments for the cyber range environment.  
 Maintaining this file prevents IP conflicts, simplifies troubleshooting, and ensures consistency as the environment scales.
 
-# Target Environment — IP Configuration
+# 🌐 Target Environment — IP Configuration
 
 ## Purpose
 
@@ -20,27 +20,6 @@ It ensures:
 
 - Used in: Phase 01 — Networking
 - Referenced by all system deployment phases
-
----
-
-# 🌐 Network Segmentation
-
-## Red Team Network
-Subnet: `10.20.10.0/24`  
-Gateway: `10.20.10.1`
-
-### 🔹 Red Team Systems
-
-| System Name              | Hostname                  | IP Address     |
-|-------------------------|--------------------------|----------------|
-| Student Attacker 01     | Student-Attacker-01      | 10.20.10.104   |
-| Student Attacker 02     | Student-Attacker-02      | 10.20.10.105   |
-| Student Attacker 03     | Student-Attacker-03      | 10.20.10.106   |
-| Student Attacker 04     | Student-Attacker-04      | 10.20.10.107   |
-| Student Attacker 05     | Student-Attacker-05      | 10.20.10.108   |
-| Student Attacker 06     | Student-Attacker-06      | 10.20.10.109   |
-| Instructor Workstation  | Instructor-Workstation   | 10.20.10.110   |
-| Red Team Jump Box       | Red-Team-Jump-Box        | 10.20.10.80    |
 
 ---
 
@@ -91,14 +70,6 @@ Gateway: `10.20.20.1`
 
 ---
 
-## SOC / Detection Network
-Subnet: `10.20.30.0/24`  
-Gateway: `10.20.30.1`
-
-> (To be populated)
-
----
-
 # 📌 IP Addressing Strategy
 
 - `.1` → Gateway / Firewall
@@ -121,17 +92,3 @@ Gateway: `10.20.30.1`
 - Avoid reusing IPs unless confirmed unused across the environment
 
 ---
-
-# 🚀 Future Additions
-
-- SOC/Detection tools (Security Onion, SIEM, log forwarders)
-- Additional vulnerable systems
-- Expanded user workstation pool
-- Additional admin and analyst systems
-
----
-
-# 🧠 Notes
-
-This file should be continuously updated as the environment evolves.  
-It serves as the single source of truth for network addressing within the cyber range.
