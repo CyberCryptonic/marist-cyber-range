@@ -24,7 +24,6 @@ Setting up tools inside VMS
 
 AI Summit
 -10:45-11:00
--We will be set up in the Snack and coffee room!
 -Don't have to go for the full thing if we don’t want to
 
 General: Research cyber ranges and assess if we’re missing anything
