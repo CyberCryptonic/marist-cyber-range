@@ -65,6 +65,24 @@ Those belong in later phases.
 
 ---
 
+---
+
+## Time Synchronization Requirement
+
+All systems in the cyber range MUST:
+
+- Use the same timezone (Eastern Time - UTC -0400)
+- Synchronize time from the domain controllers
+- Maintain time alignment within a few seconds
+
+Failure to maintain consistent time will result in:
+
+- Authentication failures
+- Security Onion dashboard login issues
+- Incorrect log correlation
+
+---
+
 # Environment Overview
 
 ## Hypervisor Platform
