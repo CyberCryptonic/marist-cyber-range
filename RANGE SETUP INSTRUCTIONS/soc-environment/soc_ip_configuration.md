@@ -39,7 +39,6 @@ Gateway: `10.20.30.1`
 |--------------------------------|-------------------------------|----------------|
 | Security Onion Platform        | Security-Onion                | 10.20.30.10    |
 | Firewall & Segmentation Server | Firewall-Segmentation         | 10.20.30.20    |
-| Linux Log Server               | Linux-Log-Server              | 10.20.30.30    |
 | Core Network Router            | Core-Network-Router           | 10.20.30.40    |
 
 ---
