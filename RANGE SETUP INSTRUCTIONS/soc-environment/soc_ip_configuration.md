@@ -49,7 +49,6 @@ Gateway: `10.20.30.1`
 | System Name                     | Hostname                        | IP Address     |
 |--------------------------------|----------------------------------|----------------|
 | Adversary Simulation Server    | Adversary-Simulation             | 10.20.30.50    |
-| Network Traffic Generator      | Traffic-Generator                | 10.20.30.60    |
 | Cyber Range Orchestration      | Range-Orchestration              | 10.20.30.70    |
 
 ---
