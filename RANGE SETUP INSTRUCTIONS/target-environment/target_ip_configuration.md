@@ -36,6 +36,7 @@ Gateway: `10.20.20.1`
 | Internal Web Server     | Internal-Web-Server      | 10.20.20.12    |
 | Windows Log Server      | Windows-Log-Server       | 10.20.20.13    |
 | Vulnerable Server       | Vuln-Training-Server     | 10.20.20.14    |
+|Network Traffic Generator|Network-Traffic-Generator | 10.20.20.15    |
 | File Server             | File-Server              | 10.20.20.30    |
 
 ---
