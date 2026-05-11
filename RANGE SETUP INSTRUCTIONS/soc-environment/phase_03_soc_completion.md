@@ -3,10 +3,6 @@
 
 ---
 
-## Status
-
-✅ NEARLY COMPLETE
-
 The SOC / Detection Environment has been built to an operational state and is actively receiving telemetry from the Target Environment. At this stage, the major SOC systems are deployed, routing and segmentation are in place, Linux syslog forwarding is working, OPNsense firewall telemetry is working, and Elastic Agent has been installed on Target Environment machines and assigned to the Fleet policy.
 
 The remaining unresolved items at the time of this documentation are:
