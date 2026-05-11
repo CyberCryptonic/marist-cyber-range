@@ -101,4 +101,4 @@ Possible future improvements:
 - Scenario reset scripts
 - Automated traffic generation scripts
 
-This folder should gradually evolve from documentation into a true infrastructure automation libr
+This folder should gradually evolve from documentation into a true infrastructure automation library.
