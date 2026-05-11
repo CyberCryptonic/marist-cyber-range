@@ -1,6 +1,3 @@
-## Status
-
-✅ Completed
 
 # Marist SOC Cyber Range
 # Lab Build Guide — Phase 02: Active Directory Deployment and Domain Setup
