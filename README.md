@@ -98,3 +98,13 @@ This repository is intended to:
 - Demonstrate a structured approach to building a SOC environment  
 
 ---
+
+## License
+
+This project is licensed under the MIT License.
+
+The documentation, setup instructions, scripts, and configuration examples are provided so students, educators, and cybersecurity teams can study, adapt, and recreate the Marist Cyber Range in their own authorized lab environments.
+
+See the [LICENSE](LICENSE) file for details.
+
+---
