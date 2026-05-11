@@ -14,8 +14,6 @@
 # Marist SOC Cyber Range  
 # Lab Build Guide — Phase 03: Active Directory Structure, Users, Groups, and Group Policy
 
-Source File: :contentReference[oaicite:0]{index=0}
-
 ---
 
 # Purpose
