@@ -1,6 +1,3 @@
-## Status
-
-✅ Completed
 
 - Users created  
 - Groups implemented  
