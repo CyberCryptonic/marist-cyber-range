@@ -100,15 +100,3 @@ Gateway: `10.20.30.1`
 - Do not reuse IP addresses without verification
 
 ---
-
-# 📍 Phase 01 Status
-
-The following systems are fully deployed and validated:
-
-- Security Onion → `10.20.30.10`
-- SOC Admin Workstation → DHCP
-- SOC Analyst Workstation → DHCP
-
-Remaining systems will be deployed in future phases.
-
----
