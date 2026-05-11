@@ -1,6 +1,3 @@
-## Status
-
-✅ Completed
 
 - File Server deployed  
 - Shares created  
