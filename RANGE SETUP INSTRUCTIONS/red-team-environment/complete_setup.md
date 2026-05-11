@@ -4,27 +4,6 @@ This environment simulates the offensive side of the cyber range and is used to 
 
 ---
 
-## Status
-
-✅ COMPLETE
-
-The Red Team Environment has been built as the offensive segment of the Marist Cyber Range and is ready to support attack simulation activities.
-
----
-
-## Build Progress
-
-- ✅ Red Team network segment defined
-- ✅ Red Team VM role planning completed
-- ✅ Kali Linux attacker systems deployed
-- ✅ Instructor attacker system deployed
-- ✅ Red Team jump server deployed
-- ✅ Network placement configured on Red Team subnet
-- ✅ Basic connectivity validated
-- ✅ Offensive environment prepared for future scenario execution
-
----
-
 ## Build Order
 
 1. `ip_configuration.md`
