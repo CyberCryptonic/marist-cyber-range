@@ -1,6 +1,3 @@
-## Status 
-
-✅ COMPLETE
 
 # Marist SOC Cyber Range
 # Lab Build Guide — Phase 01: Security Onion and SOC Workstation Deployment
