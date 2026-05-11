@@ -1,9 +1,5 @@
 # Phase_02 — SOC Environment Setup
 
-## Status
-
-✅ COMPLETE
-
 # Marist SOC Cyber Range
 # Lab Build Guide — Phase 02: Firewall Segmentation Server and Core Network Router Deployment
 
