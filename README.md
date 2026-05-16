@@ -22,7 +22,7 @@ Do not use this material to target systems, networks, users, or organizations wi
 
 ## Stakeholders
 
-- Marist College Cybersecurity Program
+- Marist University Cybersecurity Program
 - Industry Partner: Central Hudson Gas & Electric
 - Faculty Advisor: Dominick Foti
 - Student Team: Nate Pena, Erick Perez, Ryan Clark, Benjamin Brandt
